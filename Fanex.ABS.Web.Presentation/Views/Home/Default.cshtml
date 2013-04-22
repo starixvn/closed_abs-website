@@ -1,0 +1,116 @@
+﻿@using Fanex.ABS.Web.Controllers.Helper
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <link href="@Url.Content("~/Views/Home/Styles/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Views/Home/Styles/superfish.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Scripts/Lib/UI/css/custom-theme/jquery-ui-1.8.10.custom.css")" rel="Stylesheet" type="text/css" />
+</head>
+<body style="overflow: hidden;">
+    <div id="fullsize" class="fullsize">
+    </div>
+    <div id="mainPage">
+        <div class="top-bar">
+            <div class="menu">
+                <div class="content">
+                    <a href="#" class="logo over-em ">ABS <span>Admin</span> » </a>
+                    <div class="content_all">
+                        @Html.Raw(ViewBag.TopMenu)
+                    </div>
+                    <ul class="nav rfloat welkom ">
+                        <li class="tab"><a href="javascript:void(0)"><span>
+                            <img src="~/Content/Images/blank.gif" alt="" />
+                            @AppSession.Username </span></a>
+                            <ul style="display: none;" class="sub-nav">
+                                <li><a href="@Url.Action("ChangePassword", "UserControl")" title="Change Password" target="centerFr">
+                                    Change Password</a></li>
+                                <li><a href="@Url.Action("LogOut", "Account")" title="Logout">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="body showcase">
+            <div class="content">
+                <div id="content">
+                    <iframe id="centerFr" name="centerFr" src="@Url.Action("InstantReportPage", "InstantReport")" scrolling="auto"
+                        marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0" style="width: 100%;
+                        height: 0px;" allowtransparency="true"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    <iframe id="UpdateOnlineStatus" name="UpdateOnlineStatus" width="0" height="0" style="display: none">
+    </iframe>
+    <script src="~/Scripts/Lib/jquery.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/jquery.blockUI.1.33.js" type="text/javascript"></script>
+    <script src="~/Scripts/BlockUI.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/jquery.imgpreload.js" type="text/javascript"></script>
+    <script src="~/Scripts/hoverIntent.js" type="text/javascript"></script>
+    <script src="~/Scripts/superfish.js" type="text/javascript"></script>
+    <script language="javascript" type="text/javascript">
+        /// <reference path="lib/jquery.min.js" />
+        setInterval('update_online_status()', 45000);
+        $(document).ready(function () {
+            var the_images = ["../Views/Home/Styles/Images/sprites.png", "../Views/Home/Styles/layout/submenu-top.gif"];
+            jQuery.imgpreload(the_images,
+		    {
+		        each: function () { },
+		        all: function () { }
+		    });
+
+            $('.menu .nav li.tab').hover(
+                function () { // on mouse over
+                    $('.menu .nav ul.sub-nav').hide();
+                    $(this).addClass('hover').find('ul.sub-nav').eq(0).slideDown('fast');
+                },
+                function () { // on mouse out
+                    $(this).removeClass('hover').find('ul.sub-nav').eq(0).hide();
+                });
+            pre_resize();
+            $(window).resize(function () {
+                pre_resize();
+            });
+
+            $('ul.sf-menu').superfish({
+                delay: 1,                            // one second delay on mouseout
+                animation: { opacity: 'show', height: 'show' },  // fade-in and slide-down animation
+                speed: 45,                          // faster animation speed
+                autoArrows: false,                           // disable generation of arrow mark-up
+                dropShadows: true                            // disable drop shadows
+            });
+        });
+        function pre_resize(__optHeight) {
+            var fullheight = $(".fullsize").height();
+            var contentheight = fullheight - 80;
+            if (__optHeight) {
+                if (__optHeight > contentheight)
+                    contentheight = __optHeight;
+            }
+            $('#centerFr').height(contentheight + "px");
+        }
+        function update_online_status() {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Content("~/Account/UpdateOnlineStatus")',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: null,
+                success: function (r) {
+                    if (r.ErrorCode != 0) {
+                        if (r.ErrorCode == 1) {
+                            alert(r.ErrorMessage);
+                        }
+                        top.location.href = '@Url.Content("~/Account/LogOut/")';
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

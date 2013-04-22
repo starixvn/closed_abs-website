@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "SignOut";
+}
+<script type="text/javascript">
+    try {
+        parent.location.href = '@Url.Action("SignIn", "Account")';
+    }
+    catch (e) {
+        location.href = '@Url.Action("SignIn", "Account")';
+    }
+</script>
+<h2>
+    SignOut</h2>

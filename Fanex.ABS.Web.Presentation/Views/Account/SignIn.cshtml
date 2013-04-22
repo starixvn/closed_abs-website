@@ -1,0 +1,76 @@
+﻿@model object
+@{
+    ViewBag.Title = "Sign In";
+}
+<link href="@Url.Content("~/Views/Account/Styles/Login.css")" rel="stylesheet" type="text/css" />
+<form method="post">
+<div id="horizon">
+    <div id="login-box">
+        <div class="box-border">
+            <div class="box-container">
+                <div class="title-header">
+                    <h6 class="over-em">
+                        ABS Admin Login</h6>
+                </div>
+                <div class="login-form">
+                    <div class="form-row">
+                        <label for="UserName">
+                            Username</label>
+                        <input class="inputtext" id="UserName" name="UserName" type="text" value="@ViewBag.UserName" />
+                        <span class="field-validation-valid" username="true">&lt;&lt; required</span>
+                    </div>
+                    <div class="form-row">
+                        <label for="Password">
+                            Password</label>
+                        <input class="inputpwd" id="Password" name="Password" type="password" value="@ViewBag.Password" />
+                        <span class="field-validation-valid" password="true">&lt;&lt; required</span>
+                        <div class="form-row btn-wrp">
+                            <input id="btnLogin" name="btnLogin" title="Click me to login <<<<" type="submit"
+                                onclick="javascript:return signIn.login();" value="Login" />
+                        </div>
+                        <div id="ErrorMessage" class="validation-summary-errors" style="display: none;">
+                            <span></span>
+                            <ul>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <table cellspacing="0px" cellpadding="0px" border="0px" class="bestview">
+                    <tbody>
+                        <tr>
+                            <td align="right">
+                                Best viewed in 
+                            </td>
+                            <td class="viewIE">
+                            </td>                            
+                            <td style="width:20px">IE8+</td>
+                            <td class="viewFF">
+                            </td>
+                            <td style="width:20px">FF4+</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+<iframe id="controlFr" name="controlFr" style="display: none;"></iframe>
+<script src="@Url.Content("~/Scripts/head.load.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Views/Account/Scripts/Login.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        $("body").show();
+        @Html.Raw(ViewBag.ResultMessage)
+    });
+    try { parent.jQuery.unblockUI(); }
+    catch (e) {
+        try {
+            parent.parent.jQuery.unblockUI();
+        }
+        catch (e) { }
+    };
+</script>

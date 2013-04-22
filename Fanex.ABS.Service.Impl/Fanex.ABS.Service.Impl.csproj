@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4810926F-6C13-4D00-9F61-0ADEC8BB8E18}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Fanex.ABS.Service.Impl</RootNamespace>
+    <AssemblyName>Fanex.ABS.Service.Impl</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Couchbase, Version=1.0.0.0, Culture=neutral, PublicKeyToken=81137140da4e57ef, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Dependency\Fanex\Couchbase.dll</HintPath>
+    </Reference>
+    <Reference Include="DNAide">
+      <HintPath>..\..\..\..\..\Dependency\DNAide.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelUtil">
+      <HintPath>..\..\..\..\..\Dependency\ExcelUtil.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Caching">
+      <HintPath>..\..\..\..\..\Dependency\Fanex\Fanex.Caching.dll</HintPath>
+    </Reference>
+    <Reference Include="IBCFile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Dependency\UM\IBCFile.dll</HintPath>
+    </Reference>
+    <Reference Include="IBCUtils">
+      <HintPath>..\..\..\..\..\Dependency\IBCUtils.dll</HintPath>
+    </Reference>
+    <Reference Include="LoadBalancer">
+      <HintPath>..\..\..\..\..\Dependency\LoadBalancer.dll</HintPath>
+    </Reference>
+    <Reference Include="Membase">
+      <HintPath>..\..\..\..\..\Dependency\Cache\Memcached\Membase.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\..\..\..\..\Dependency\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\..\..\..\..\Dependency\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="SPSRemoting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Dependency\UM\SPSRemoting.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UMControllerLibrary">
+      <HintPath>..\..\..\..\..\Dependency\UM\UMControllerLibrary.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CacheService.cs" />
+    <Compile Include="CommonService.cs" />
+    <Compile Include="Customer\CustomerService.cs" />
+    <Compile Include="Helper\ExchangeRate.cs" />
+    <Compile Include="Helper\ReportHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report\InstantRecordsService.cs" />
+    <Compile Include="Report\InstantReportService.cs" />
+    <Compile Include="Report\SettleResultService.cs" />
+    <Compile Include="Report\SummaryReportService.cs" />
+    <Compile Include="UnderMaintenanceService.cs" />
+    <Compile Include="User\Authentication.cs" />
+    <Compile Include="User\LoginFailHandler.cs" />
+    <Compile Include="User\PermissionService.cs" />
+    <Compile Include="User\UserService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Fanex.ABS.DataAccess.Impl\Fanex.ABS.DataAccess.Impl.csproj">
+      <Project>{904EBE81-CA90-4E02-B1FC-41ADEF760410}</Project>
+      <Name>Fanex.ABS.DataAccess.Impl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.ABS.DataAccess.Interface\Fanex.ABS.DataAccess.Interface.csproj">
+      <Project>{136D37C4-AECA-42C5-818A-DCCE7049EA3E}</Project>
+      <Name>Fanex.ABS.DataAccess.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.ABS.Entities\Fanex.ABS.Entities.csproj">
+      <Project>{45F7A744-1327-4570-B74E-936FC29D7027}</Project>
+      <Name>Fanex.ABS.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.ABS.Infrastructure\Fanex.ABS.Infrastructure.csproj">
+      <Project>{DDFB5A5A-DCC8-4BBB-B734-604A648948C6}</Project>
+      <Name>Fanex.ABS.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.ABS.Service.Interface\Fanex.ABS.Service.Interface.csproj">
+      <Project>{E0174EF5-4DDD-482B-A841-8C9CAD87E2F8}</Project>
+      <Name>Fanex.ABS.Service.Interface</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

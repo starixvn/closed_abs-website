@@ -1,0 +1,5 @@
+D:\WORK\PROJECT\ROME1\ABS\Main\SourceCodeMVC\ABS\Fanex.ABS.Entities\bin\Debug\Fanex.ABS.Entities.dll
+D:\WORK\PROJECT\ROME1\ABS\Main\SourceCodeMVC\ABS\Fanex.ABS.Entities\bin\Debug\Fanex.ABS.Entities.pdb
+D:\WORK\PROJECT\ROME1\ABS\Main\SourceCodeMVC\ABS\Fanex.ABS.Entities\obj\Debug\ResolveAssemblyReference.cache
+D:\WORK\PROJECT\ROME1\ABS\Main\SourceCodeMVC\ABS\Fanex.ABS.Entities\obj\Debug\Fanex.ABS.Entities.dll
+D:\WORK\PROJECT\ROME1\ABS\Main\SourceCodeMVC\ABS\Fanex.ABS.Entities\obj\Debug\Fanex.ABS.Entities.pdb

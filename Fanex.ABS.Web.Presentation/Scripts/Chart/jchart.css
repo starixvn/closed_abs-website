@@ -1,0 +1,93 @@
+﻿.chart_shadow
+{
+    background: none repeat scroll 0 0 #1A1C1D;
+    float: left;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1010;
+    opacity: 0.5;
+    filter: alpha(opacity = 50);
+}
+.chart_popup
+{
+    background: none repeat scroll 0 0 #FFFFFF;
+    float: left;
+    width: 100%;
+    position: absolute;
+    top: 100px;
+    left: 0;
+    z-index: 1020;
+    display: none;
+    border: 2px solid #7C98A4;
+    overflow: hidden;
+}
+.chart_title
+{
+    background: url("../../Content/Ocean/images/bg_head_tb.jpg") repeat-x scroll left bottom #FFFFFF;
+    float: left;
+    width: 100%;
+    padding: 5px 0px;
+    font-size: 13px;
+    font-style: italic;
+    font-weight: bold;
+    border-bottom: 1px solid #7C98A4;
+    cursor: move;
+}
+.chart_title div.title
+{
+    float: left;
+    width: 90%;
+    text-align: center;
+    font: bold 12px Verdana, sans-serif;
+    color: #6D869F;
+}
+.chart_title div.close
+{
+    float: right;
+    width: 2%;
+    background: url(../../Content/Ocean/images/close_16_16.gif) no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    height: 16px;
+}
+.chart_title div.setting
+{
+    float: left;
+    width: 6%;
+    background: url(../../Content/Ocean/images/setting.png) no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    height: 16px;
+    margin-left: 3px;
+    display: block;
+}
+.chart_content
+{
+    width: 100%;
+    overflow: hidden;
+}
+.chart_canvas
+{
+    background: none repeat scroll 0 0 transparent;
+    float: left;
+    width: 100%;
+}
+.chart_setting
+{
+    background-color: #FFF;
+    position: absolute;
+    border: 1px solid #7C98A4;
+    float: left;
+    display: none;
+    z-index: 1000;
+}
+.chart_setting ul
+{
+    margin-left: -35px;
+}
+.chart_setting ul li
+{
+    list-style-type: none;
+    font: 11px Verdana,sans-serif;
+}

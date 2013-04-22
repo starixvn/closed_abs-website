@@ -1,0 +1,105 @@
+﻿#multipleSelection
+{
+    margin-top: 6px;
+}
+#accountSelection
+{
+    float: left;
+}
+#leagueSelection
+{
+    margin-left: 6px;
+    float: left;
+}
+#tblHours
+{
+   border-collapse: collapse;
+}
+#tblHours td
+{
+    padding:1px;  
+    border-color: #BABABA;
+    border: 1px solid #BABABA;
+    line-height:18px;
+}
+#tblHours td.title a  
+{
+   color: #FFFFFF;   
+}
+#tblHours td.title
+{
+    background-color: #3B5998;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+#betPerHour
+{
+    float: left;
+}
+#reportContent
+{
+	float: left;
+	}
+.tbl-header-scroll a, .tbl-footer-scroll a
+{
+    color: #fff;
+}
+#currDate
+{
+	color:Purple;
+	font-weight:bold;
+	}
+.timeSelections
+{
+	color:#003366;
+	}
+.spmatch
+{
+	font-weight:bold;
+	color:#000066;
+	margin-left:12px; 
+	}
+#completeMatch, #runningMatch
+{
+	color:Blue;
+	cursor:pointer;
+	}	
+span.disabled, a.disabled
+{
+	color:Gray !important;
+	cursor:default;
+	}
+	
+#matchsHidden, #accountHidden, #leagueHidden
+{
+	color:Purple;
+	font-size:14px;
+	}	
+	
+span.livescore
+{
+	color:#008039;
+	}
+span.versus
+{
+	color:Blue;
+	}
+span.league
+{
+	color:#666666;
+}	
+.red
+{
+	color:Red;
+	}	
+td.newrow
+{
+	background-color: #76E9FF !important;
+}
+.divcontainseod
+{
+    color:#CE304B; 
+    font-size: 8px;
+    position: absolute;
+}
+				

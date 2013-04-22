@@ -1,0 +1,343 @@
+﻿@using Fanex.ABS.Infrastructure.Configurations;
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <link href="~/Content/Ocean/Grid.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Ocean/StyleSheet.css" rel="stylesheet" type="text/css" />
+    <title>Instant Report Detail</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <input id="hiddenKickOffDate" type="hidden" runat="server" value="@ViewBag.KickOffDate" />
+    <input id="hiddenKickOffTime" type="hidden" runat="server" value="@ViewBag.KickOffTime" />
+    <input id="hiddenLeagueIds" type="hidden" runat="server" value="@ViewBag.LeagueIds" />
+    <input id="hiddenPunterIds" type="hidden" runat="server" value="@ViewBag.PunterIds" />
+    <input id="hiddenEventStatus" type="hidden" runat="server" value="@ViewBag.EventStatus" />
+    <input id="hiddenMatchID" type="hidden" runat="server" value="@ViewBag.MatchID" />
+    <input id="hiddenMatchCode" type="hidden" runat="server" value="@ViewBag.MatchCode" />
+    <input id="hiddenBettype" type="hidden" runat="server" value="@ViewBag.Bettype" />
+    </form>
+    <div id="headerSection" style="margin-left: 6px;">
+        <a href="javascript:void(0)" id="btnToggle" class="toggler" title="Expand/Collapse"
+            style="margin-right: 6px;">&nbsp;</a>
+        <div class="pageTitle">
+            Instant Report Detail</div>
+        <div class="filterSection" id="filterSection" style="width: 1083px;">
+            <table border="0">
+                <tbody>
+                    <tr>
+                        <td class="col60 r">
+                            <label>
+                                Account:</label>
+                        </td>
+                        <td class="col100 l">
+                            <select id="selectAccounts" class="w100">
+                            </select>
+                        </td>
+                        <td class="col20">
+                            <span id="spanSetHideAccounts" style="color: #6AB3D7; text-decoration: underline;
+                                cursor: pointer">...</span>
+                        </td>
+                        <td class="col80 l">
+                            <label>
+                                Refresh Time</label>
+                        </td>
+                        <td class="col100">
+                            <select id="selectRefreshTime" class="w100">
+                                <option value="10" selected="selected">10 sec</option>
+                                <option value="15">15 sec</option>
+                                <option value="30">30 sec</option>
+                                <option value="60">60 sec</option>
+                                <option value="90">90 sec</option>
+                                <option value="120">120 sec</option>
+                                <option value="-1">Never</option>
+                            </select>
+                        </td>
+                        <td class="col80">
+                            <input id="btnRefresh" type="button" class="btn" value="Refresh" />
+                        </td>
+                        <td class="col120">
+                            <span id="lblRefreshTime" class="b" style="color: #00339D"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style="margin-top: 6px">
+                <span style="color: Purple; font-weight: bold; font-size: 12px; display: none">Now:
+                    <span id="spanTimeNow"></span></span><span id="spanHide" style="margin-left: 12px;
+                        color: #6AB3D7; text-decoration: underline; font-size: 12px; cursor: pointer">[Hide]</span>
+                <span id="spanShowAll" style="color: #6AB3D7; text-decoration: underline; font-size: 12px;
+                    cursor: pointer">[Show ALL]</span> <span style="font-size: 12px">[Hidden: <span id="spanHiddenCounter"
+                        style="font-size: 12px; color: Purple; font-weight: bold">0</span>]</span>
+            </div>
+            <div id="msg" style="display: none">
+            </div>
+        </div>
+    </div>
+    <div class="contentSection" id="contentSection" style="float: left; margin-top: 6px;
+        padding-left: 6px; padding-top: 97px; padding-bottom: 12px;">
+        <div id="divMainGrid" class="content-warper hidden" style="border-right: 0px; border-bottom: 0px;">
+            <div class="content-header clearfix">
+                <div class="header-scroll">
+                    <table class="tbl-header-scroll">
+                        <tr>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col40 c">
+                                    <input id="cbxShowHideAll" type="checkbox" checked="checked" />
+                                </div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col100 c">
+                                    Entry Time
+                                </div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col60 c">
+                                    EHD
+                                </div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col60 c">
+                                    EOD
+                                </div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col100 c">
+                                    Acc
+                                </div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col100 c">
+                                    BT
+                                </div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col200 c">
+                                    Team Pick
+                                </div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col80 c">
+                                    HD/Goal
+                                </div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col60 c">
+                                    Odds
+                                </div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col60 c">
+                                    Stake
+                                </div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col100 c">
+                                    Remarks
+                                </div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col100 c">
+                                    Total P&L
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="content-body clearfix">
+                <div class="body-scroll" style="overflow: hidden;">
+                    <table class="tbl-body-scroll">
+                        <tbody id="tobdyMainGrid">
+                        </tbody>
+                    </table>
+                    <script id="stMatch" type="text/html">
+                        <tr id="${id}" matchid="${MatchCode}" transcount="${Trans.length}" bettype="${BetType}"
+                        ><td style="background-color:#95B3D7;">
+                            <div class="col40 c">
+                                <input type='checkbox' onchange='javascript:ird.grid.checkboxShowHideEvent(event);' matchid="${MatchCode}" checked="checked" />
+                            </div>
+                        </td><td colspan="10" style="background-color:#95B3D7;">
+                            <div class="l" style="width:945px">
+                                <span style="color:#0028A1; font-weight:bold">[${MatchDT}]</span>
+                                <span style="margin-left:2px; font-weight:bold">${LeagueName}</span>
+                                <span style="margin-left:2px; font-weight:bold">${HomeName}</span>
+                                <span style="margin-left:2px;color:blue">vs</span>
+                                <span style="margin-left:2px; font-weight:bold">${AwayName}</span>
+                                <span style="margin-left:2px; font-weight:bold; color:#006600">[FT:${FinalHomeScore}-${FinalAwayScore}]</span>
+                            </div>
+                        </td><td style="background-color:#95B3D7;">
+                            <div class="col100">
+                                <span style="text-decoration: underline;color:#21008E; cursor:pointer; float:right" onclick="javascript:ird.grid.hideOne(event);">[Hide]</span>
+                            </div>
+                        </td>
+                        </tr>
+                    </script>
+                    <script id="stTicket" type="text/html">
+                        <tr id="${id}" ticketrow="true" punterid="${PunterId}" matchidofticket="${MatchId}" class="${hightLight}"
+                        style="${hide}" transid="${TransId}"
+                        ><td style="border-bottom:0px none">
+                                <div class="col40 c">
+                                    <input punterid="true" type="hidden" value="${PunterId}" />
+                                </div>
+                            </td><td>
+                                <div class="col100 l">
+                                    ${TransDateFormated}
+                                </div>
+                            </td><td>
+                                <div class="col60 r" ehd="true">
+                                    {{if FirstOddHDP != ""}}
+                                        ${FirstOddHDP}
+                                    {{/if}}
+                                </div>
+                            </td><td>
+                                <div class="col60 r" eod="true">
+                                    {{if FirstOddOU != ""}}
+                                        ${FirstOddOU}
+                                    {{/if}}
+                                </div>
+                            </td><td>
+                                <div class="col100 c" style="font-weight:bold; color:${Color}">
+                                    ${PunterName}
+                                </div>
+                            </td><td>
+                                <div class="col100 c b" ${ColorChoice}>
+                                    {{if LiveIndicator == true}}
+                                        <span style="color:Blue">Live</span>
+                                    {{/if}}
+                                    ${BetTypeName}&nbsp;
+                                    {{if LiveIndicator == true}}
+                                        <span style="color:Blue">${LiveHomeScore}</span>-<span style="color:Blue">${LiveAwayScore}</span>
+                                    {{/if}}
+                                </div>
+                            </td><td>
+                                <div class="col200 l b" ${ColorChoice}>
+                                    ${BetTeamName}
+                                </div>
+                            </td><td>
+                                <div class="col80 r"
+                                    {{if _Hdp < 0}}
+                                        style="color:red"
+                                    {{/if}}
+                                >
+                                    ${Hdp}
+                                </div>
+                            </td><td>
+                                <div class="col60 r" style="font-weight:bold; color:#FF5050">
+                                    ${Odds}
+                                </div>
+                            </td><td>
+                                <div class="col60 r" style="font-weight:bold; color:#00009D">
+                                    ${Stake}
+                                </div>
+                            </td><td>
+                                <div class="col100 l">
+                                    <div style="float:right;color:blue; text-decoration: underline; cursor:pointer" onclick="javascript:ird.grid.editRemark(event, ${TransId});">[Edit]</div>
+                                    <div remark="true" style="color:blue">${Remark}&nbsp</div>
+                                </div>
+                            </td><td>
+                                <div class="col100 r" statusid="${StatusId}"
+                                    {{if _Winlost < 0}}
+                                        style="color:red"
+                                    {{/if}}
+                                >
+                                    {{if StatusId != 0 && StatusId != 1}}
+                                        ${Winlost}
+                                    {{/if}}
+                                </div>
+                            </td>
+                        </tr>
+                    </script>
+                    <script id="stNoInfo" type="text/html">
+                        <tr noinfo="true"><td>
+                            <div class="c" style="width:1093px;" >
+                            There is no information
+                            </div>
+                        </td>
+                        </tr>
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="divEditRemark" style="display: none">
+        <div id="divMsgRemark" style="width: 354px; padding-left: 4px; padding-bottom: 2px;
+            padding-top: 2px; margin-top: 2px;">
+        </div>
+        <table border="0" style="margin-top: 2px">
+            <tr>
+                <td valign="top">
+                    <label>
+                        Content:</label>
+                </td>
+                <td>
+                    <textarea id="txtRemark" style="width: 300px; height: 80px; resize: none" rows="10"
+                        cols="100"></textarea>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="divSetHideAccounts" style="display: none">
+        <div id="divSetHideAccountsGrid" class="content-warper" style="margin-top: 10px">
+            <div class="content-header clearfix">
+                <div class="header-scroll">
+                    <table class="tbl-header-scroll">
+                        <tbody>
+                            <tr>
+                                <td style="border-bottom: none 0px;">
+                                    <div class="col30 c">
+                                        <input id="cbxAllSetHideAccounts" type="checkbox" class="inputtext" checked="checked" />
+                                    </div>
+                                </td>
+                                <td style="border-bottom: none 0px;">
+                                    <div class="col100 c">
+                                        Description
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="content-body clearfix">
+                <div class="body-scroll" style="overflow: hidden">
+                    <table class="tbl-body-scroll">
+                        <tbody id="tbodySetHideAccounts">
+                        </tbody>
+                    </table>
+                    <script id="stSetHideAccounts" type="text/html">
+                        <tr><td>
+                                <div class="col30 c">
+                                    <input type="checkbox" class="inputtext" checked="checked" punterid="${Id}"
+                                    onchange="javascript:ird.hideAccountsPopup.checkboxBodyChangeHandler(event);" />
+                                </div>
+                            </td><td>
+                                <div class="col100 c">
+                                    ${PunterCode}
+                                </div>
+                            </td>
+                        </tr>
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/Lib/jquery.1.6.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/utils/jquery.button.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/json2.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/Template/jquery.tmpl.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/gridscroller.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/jquery.imgpreload.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/Popup/js/centreIt-1.1.5.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/Popup/js/jquery.popup.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/Jlinq/jlinq.jquery.js" type="text/javascript"></script>
+    <script src="~/Scripts/Common.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/jquery.queue.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/Cookie/jquery.cookie.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/jquery.overlayer.js" type="text/javascript"></script>
+    <script src="~/Views/Report/Scripts/InstantReportDetail.js?ver=@WebSettings.Version" type="text/javascript"></script>
+</body>
+</html>

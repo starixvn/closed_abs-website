@@ -1,0 +1,489 @@
+/*----------------------------------------------------------
+Sunplus Admin Primary Style Sheet
+----------------------------------------------------------*/
+html, body {
+    background: #F2F2F2;
+}
+
+html, body, form, div, h1, h2, h3, h4, h5, h6, li, ol, p, ul {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #FFFFFF;
+    color: #333;
+    font-family: "lucida grande" ,tahoma,verdana,arial,sans-serif;
+    text-align: left;
+    font-size: 11px;
+    margin: 0;
+    padding: 0;
+}
+
+.fullsize
+{
+    position: absolute;
+    top: 0px;
+    left: -10000px;
+    width: 100%;
+    height: 100%;
+    display: none;
+    @display:block;
+}
+
+a {
+    color: #3B5998;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+img {
+    border: 0 none;
+}
+
+#mainPage .clear {
+    clear: both;
+}
+
+#mainPage .lclear {
+    clear: left;
+}
+
+#mainPage .rclear {
+    clear: right;
+}
+
+#mainPage .lfloat {
+    float: left;
+}
+
+#mainPage .rfloat {
+    float: right;
+}
+
+#mainPage .rmargin3 {
+    margin-right: 3px;
+}
+
+.clearfix {
+    display: block;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #333333;
+    font-size: 13px;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 14px;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+label {
+    color: #666666;
+    cursor: pointer;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+p {
+    line-height: 1.5em;
+}
+
+.over-em {
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.6);
+    outline: none;
+    -webkit-transition:text-shadow .4s ease-in-out;
+}
+
+.over-em:hover {
+    text-shadow: 0 1px 0 rgba(0,0,0,0.6),0 0 6px rgba(143,181,200,1),0 0 30px rgba(143,181,200,.7);
+}
+
+/* PRIMARY LAYOUT ELEMENTS   
+----------------------------------------------------------*/
+#mainPage .header, #mainPage .body, #mainPage .body p, #mainPage .body ul, #mainPage .body ol, #mainPage .body li {
+    font-size: 12px;
+}
+
+#mainPage {
+    color: #333;
+    margin: 0;
+    min-width:1024px;
+    width: 100%;
+    float: left;
+}
+
+#mainPage .body > .content {
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-radius: 0 0 7px 7px;
+    background: white;
+    padding: 10px;
+    min-height: 600px;
+}
+
+#mainPage a {
+    /*color: #3B5998;*/
+    text-decoration: none;
+}
+
+#mainPage a:hover {
+    text-decoration: underline;
+}
+
+#mainPage .content {
+    margin: auto 10px;
+}
+
+#mainPage .header {
+    background: #FFF;
+    /*border-bottom: 1px solid #DDD;*/
+    margin-bottom: 20px;
+    padding-top: 0;
+}
+
+#mainPage .header.showcase .content {
+    margin: auto;
+    padding: 4px 0;
+    position: relative;
+}
+
+#mainPage h1, #mainPage h2, #mainPage h3, #mainPage h4 {
+    border: 0 none;
+    margin: 0;
+    padding: 0;
+}
+
+#mainPage .header h1 {
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0;
+}
+
+#mainPage .top-bar {
+    background-color: #3B5998;
+}
+
+/* Menu
+----------------------------------------------------------*/
+#mainPage .menu {
+    width: 100%;
+    font-weight: bold;
+    z-index: 100;
+}
+
+#mainPage .menu, #mainPage .menu a {
+    color: #FFF;
+    padding-top: 10px;
+    padding-top: 0\0/;
+}
+
+#mainPage .menu .content {
+    height: 43px;
+    background: #627AAD url(images/menu-bg.jpg) repeat-x;
+    border: 1px solid #1D4088;
+    border-bottom: 0;
+    border-radius: 7px 7px  0 0;
+    padding: 0 10px 0 10px;
+}
+
+#mainPage .menu a.logo, #mainPage .menu a.l {
+    float: left;
+    text-decoration: none;
+}
+
+#mainPage .menu a.logo:hover {
+    text-decoration: none;
+}
+
+#mainPage .menu a.l:hover {
+    text-decoration: underline;
+}
+
+#mainPage .menu a.logo {
+    font-family: 'Segoe UI', Verdana, Tahoma, Arial;
+    font-size: 20px;
+    color: #FFF;
+    margin: 0 10px 0 0;
+    padding-top: 7px;
+    height: 30px;
+}
+
+#mainPage .menu a.logo span {
+    background-color: #FFF;
+    border: #333 solid 1px;
+    color: #3B5998;
+    padding: 0 3px;
+    border-radius: 3px;
+}
+
+#mainPage .menu a.l {
+    line-height: 31px;
+    padding: 2px 11px;
+    margin-top: 6px;
+}
+
+.nav {
+    float: left;
+    margin-top: 5px;
+}
+
+.nav .tab {
+    background: none;
+    float: left;
+    margin: 1px 16px 0 0;
+    border: 0;
+    list-style-type: none;
+    vertical-align: middle;
+    line-height: 31px;
+}
+
+.nav .tab span {
+    display: block;
+    padding: 1px 9px;
+}
+
+.nav .tab.hover, .nav .tab:hover {
+    background-color: #FFF;
+    border: #3B5998 solid 1px;
+    box-shadow: 0 3px 10px #888;
+}
+
+.nav .tab.hover span, .nav .tab:hover span {
+    padding: 0 8px;
+}
+
+.nav .hover span, .nav li:hover span {
+    background-color: #FFFFFF;
+    position: relative;
+    z-index: 10;
+}
+
+.nav .tab.selected span {
+    color: #1C3678;
+    outline: none;
+}
+
+.nav .hover, .nav li:hover {
+    position: relative;
+    z-index: 9;
+}
+
+.nav .sub-nav {
+    background: #FFF;
+    border: 1px solid #3B5998;
+    box-shadow: 0 6px 10px #888;
+    display: none;
+    padding: 5px 0;
+    position: absolute;
+    left: -9999px;
+    top: 30px;
+    z-index: 4;
+}
+
+.nav .hover .sub-nav, .nav li:hover .sub-nav {
+    left: -1px;
+}
+
+.nav .sub-nav li {
+    line-height: 1;
+    margin: 0 5px;
+    white-space: nowrap;
+}
+
+.nav .tab a {
+    text-decoration: none;
+    float: left\0/;
+}
+
+.nav .tab.hover a, .nav .tab:hover a {
+    text-decoration: none !important;
+    color: #3B5998 !important;
+}
+
+.nav .sub-nav li a {
+    color: #3B5998 !important;
+    display: block;
+    padding: 5px;
+    white-space: nowrap;
+    min-width: 200px;
+}
+
+.nav .sub-nav li a:hover {
+    background-color: #3B5998;
+    color: #FFF !important;
+    text-decoration: none;
+}
+
+.nav.welkom .tab a span {
+    color: #FB0;
+}
+
+.nav.welkom .tab a span img {
+    /*background: transparent url(images/arw-down-white.png) no-repeat 0 0;*/
+    background: transparent url(images/sprites.png) no-repeat -81px -12px;
+    margin: 0 3px;
+    width: 7px;
+    height: 4px;
+}
+
+.nav.welkom .tab:hover a span img, .nav.welkom .tab.hover a span img {
+    /*background: transparent url(images/arw-down-white.png) no-repeat 0 -6px;*/
+    background: transparent url(images/sprites.png) no-repeat -81px -18px;
+}
+
+.nav.welkom .tab a {
+    min-width: 99px;
+}
+
+/* Authentication navigation
+----------------------------------------------------------*/
+#authInfo {
+    width: 100%;
+    height: 90px;
+    color: #CCC;
+    clear: both;
+}
+
+#authInfo .logo {
+    background: transparent url(images/1wlogo.png) no-repeat left 70%;
+    float: left;
+    width: 500px;
+    height: 90px;
+}
+
+#authInfo .auth-nav {
+    float: right;
+}
+
+#authInfo .welkom {
+    float: right;
+    height: 18px;
+    padding: 9px 8px 6px 8px;
+    font-weight: bold;
+    color: #FFF;
+}
+
+#authInfo .welkom span {
+    color: #FB0;
+}
+
+#authInfo .auth-nav li {
+    /*background: transparent url(images/seperator.png) no-repeat left 80%;*/
+    background: transparent url(images/sprites.png) no-repeat -168px -21px;
+    float: left;
+}
+
+#authInfo .auth-nav a {
+    display: inline-block;
+    color: #FFF;
+    font-weight: bold;
+    text-decoration: none;
+    height: 20px;
+    padding: 10px 10px 0;
+}
+
+#authInfo .auth-nav a:hover {
+    text-decoration: underline;
+}
+
+
+
+/* IP INFO
+-----------------------------------------------------------*/
+#ipInfo {
+    color: #333;
+}
+
+#ipInfo .note {
+    color: #666;
+    font-size: .9em;
+    padding: 5px;
+    margin-top: 10px;
+}
+
+#ipInfo .note legend {
+    color: #666;
+}
+
+#ipInfo .note a {
+    color: #3B5998;
+    text-decoration: none;
+}
+
+#ipInfo .note a:hover {
+    text-decoration: underline;
+}
+
+/* WINLOSS FILTER
+-----------------------------------------------------------*/
+.body .header .toggler {
+    /*background: transparent url(images/toggle.png) no-repeat;*/
+    background: transparent url(images/sprites.png) no-repeat 0 -12px;
+    position: absolute;
+    top: 7px;
+    left: -9999;
+    display: none;
+    width: 14px;
+    height: 14px;
+}
+
+.body .header .toggler:hover {
+    /*background: transparent url(images/toggle.png) no-repeat 0 -24px;*/
+    background: transparent url(images/sprites.png) no-repeat 0 -36px;
+}
+
+.body .header .toggler-tip {
+    /*background: #333 url(images/arw-down.png) no-repeat bottom center;*/
+    background: #333 url(images/sprites.png) no-repeat -2px 20px;
+    position: absolute;
+    top: -30px;
+    right: -76px;
+    width: 160px;
+    display: none;
+    padding: 3px 3px 7px 3px;
+    color: #FFF;
+}
+
+.body .header .fullviewer {
+    /*background: transparent url(images/fullscreen.png) no-repeat;*/
+    background: transparent url(images/sprites.png) no-repeat -18px -12px;
+    position: absolute;
+    top: 7px;
+    right: 0;
+    display: none;
+    width: 14px;
+    height: 14px;
+}
+
+.body .header .fullviewer:hover {
+    /*background: transparent url(images/fullscreen.png) no-repeat 0 -24px;*/
+    background: transparent url(images/sprites.png) no-repeat -18px -36px;
+}
+
+.body .header .fullviewer-tip {
+    /*background: #333 url(images/arw-down.png) no-repeat bottom center;*/
+    background: #333 url(images/sprites.png) no-repeat -52px 20px;
+    position: absolute;
+    top: -30px;
+    right: -26px;
+    width: 60px;
+    display: none;
+    padding: 3px 3px 7px 3px;
+    color: #FFF;
+}
+
+#btnExportExcel {
+    background: transparent url(images/sprites.png) no-repeat -61px -13px;
+    width: 16px;
+    height: 16px;
+}

@@ -1,0 +1,104 @@
+﻿tr.bgborder td{border-bottom:solid #BABABA}
+.red {color:Red}
+.c {text-align:center;}
+.l {text-align:left;}
+.top{vertical-align:top;}
+.r {text-align:right;}
+.b {font-weight:bold;}
+.clearfix{   clear:both}
+.col460{   width:460px; white-space:normal;word-wrap: break-word;}
+.col360{   width:360px; white-space:normal;word-wrap: break-word;}
+.col340{   width:340px; white-space:normal;word-wrap: break-word;}
+.col300{   width:300px; white-space:normal;word-wrap: break-word;}
+.col280{   width:280px; white-space:normal;word-wrap: break-word;}
+.col260{   width:260px; white-space:normal;word-wrap: break-word;}
+.col240{   width:240px; white-space:normal;word-wrap: break-word;}
+.col220{   width:220px; white-space:normal;word-wrap: break-word;}
+.col200{	width:200px; white-space:normal;word-wrap: break-word;}
+.col180{   width:180px; white-space:normal;word-wrap: break-word;}
+.col160{   width:160px; white-space:normal;word-wrap: break-word;}
+.col150{   width:150px; white-space:normal;word-wrap: break-word;}
+.col127{   width:127px; white-space:normal;word-wrap: break-word;}
+.col140{   width:140px; white-space:normal;word-wrap: break-word;}
+.col130{   width:130px; white-space:normal;word-wrap: break-word;}
+.col120{   width:120px; white-space:normal;word-wrap: break-word;}
+.col110{   width:110px; white-space:normal;word-wrap: break-word;}
+
+.col100{   width:100px; white-space:normal;word-wrap: break-word;}
+.col90{   width:90px; white-space:normal;word-wrap: break-word;}
+.col80{   width:80px; white-space:normal;word-wrap: break-word;}
+.col75{   width:75px; white-space:normal;word-wrap: break-word;}
+.col65{   width:65px; white-space:normal;word-wrap: break-word;}
+.col60{   width:60px; white-space:normal;word-wrap: break-word;}
+.col50{   width:50px; white-space:normal;word-wrap: break-word;}
+.col40{   width:40px; white-space:normal;word-wrap: break-word;}
+.col30{   width:30px; white-space:normal;word-wrap: break-word;}
+.col25{   width:25px; white-space:normal;word-wrap: break-word;}
+.col20{   width:20px; white-space:normal;word-wrap: break-word;}
+.colbreak {white-space:normal;word-wrap: break-word;}
+
+.indent{   display:inline-block;     vertical-align:middle;     width:16px}
+.tree-expanded{     background:url("images/expand.gif") no-repeat scroll 0px -12px transparent;  display:inline-block;  height:10px;  vertical-align:middle;  width:16px;  margin-bottom:2px;  cursor:pointer}
+.tree-expand{     background:url("images/expand.gif") no-repeat scroll 0px -1px transparent;  display:inline-block;  height:10px;  vertical-align:middle;  width:16px;  margin-bottom:2px;  cursor:pointer}
+.content-warper{   border:solid 1px #BABABA; line-height:18px; background-color:#3B5998}
+.content-toolbox{   border-bottom:solid 1px #BABABA;     height:18px; padding:2px;}
+.content-body{background-color:#fff;  border-bottom:solid 1px #BABABA}
+.content-pagination{border-top:solid 1px #BABABA;height:18px;  padding:2px;}
+.bgtitle{background:url("images/white-top-bottom.gif") repeat-x scroll 0 -2px  transparent;}
+.header-frozen, .header-scroll, .body-frozen, .footer-frozen, .footer-scroll{   float:left; overflow:hidden}
+.btngroup{float:right}
+.gridtitle{   margin-left:2px;     background:url(images/report_check.png) no-repeat left center;  padding-left:18px;  float:left;  font-weight:bold}
+.content-header{}
+
+.tbl-header-frozen, .tbl-header-scroll, .tbl-body-frozen, .tbl-body-scroll, .tbl-footer-frozen, .tbl-footer-scroll{border-collapse:collapse;}
+.tbl-header-frozen td, .tbl-header-scroll td, .tbl-body-frozen td, .tbl-body-scroll td, .tbl-footer-frozen td, .tbl-footer-scroll td{border:solid 1px #BABABA;  border-left:none 0px;  border-top:none 0px}
+.tbl-header-frozen td, .tbl-header-scroll td, .tbl-footer-frozen td, .tbl-footer-scroll td{background-color:#3B5998;  font-weight:bold}
+div.body-scroll{border-top:solid 1px #BABABA;}
+div.body-frozen{border-top:solid 1px #BABABA;  padding-bottom:20px; }
+.tbl-header-scroll td, .tbl-body-scroll td, .tbl-footer-scroll td, .tbl-header-frozen td, .tbl-body-frozen td, .tbl-footer-frozen td{padding:1px;}
+.tbl-header-frozen, .tbl-header-scroll,.tbl-footer-scroll {color:#FFFFFF;}
+
+/*#pagination{margin-top:1px;}*/
+
+.body-scroll {
+    background-color: #FFFFFF;
+    border-top: 1px solid #BABABA;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+tr.mouseon td
+{
+	background-color:#f0caf7;
+}
+
+.blue 
+{
+	color:#0066CC;	
+	cursor:pointer;
+}
+
+.evenrow td
+{
+	background-color: #DBE5F9;/*EFF3FB*/
+	
+}
+
+.evenrow2 td
+{
+	background-color: #EDECEB;
+}
+
+.closedacc td
+{
+	background-color: #D8D6D5;
+}
+
+.newrow td
+{
+	background-color: #76E9FF !important;
+	}
+	
+.removerow td
+{
+	background-color: yellow !important;
+	}

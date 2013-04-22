@@ -1,0 +1,246 @@
+﻿@using Fanex.ABS.Infrastructure.Configurations;
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Instant Report</title>
+    <link href="~/Scripts/Lib/UI/css/custom-theme/jquery-ui-1.8.10.custom.css" rel="stylesheet"
+        type="text/css" />
+    <link href="~/Scripts/Lib/MultipleSelect/jquery.multiselect.css" rel="stylesheet"
+        type="text/css" />
+    <link href="~/Views/Report/Styles/InstantReport.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Ocean/Grid.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Ocean/StyleSheet.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div id="headerSection" style="padding-bottom:2px;">
+        <a href="javascript:void(0)" id="btnToggle" class="toggler" title="Expand/Collapse">
+            &nbsp;</a>
+        <div class="pageTitle">
+            Instant Report</div>
+        <div class="filterSection" id="filterSection" style="overflow-x: auto;">
+            <table id="reportFilter" style="width: 100%;" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td class="l w50">
+                        <label>
+                            Date:</label>
+                    </td>
+                    <td class="l">
+                        <input class="inputtext txtdate" id="txtdate" readonly="readonly" style="width: 80px;" />
+                    </td>
+                    <td class="l w60">
+                        <label>
+                            League:</label>
+                    </td>
+                    <td class="l">
+                        <div id="ddlLeague" class="multiselect w260" multiple="multiple">
+                        </div>
+                    </td>
+                    <td class="l w60">
+                        <label>
+                            Account:</label>
+                    </td>
+                    <td class="l">
+                        <div id="ddlAccount" class="multiselect w180" multiple="multiple">
+                        </div>
+                    </td>
+                    <td class="l w40">
+                        <label>
+                            Sort:</label>
+                    </td>
+                    <td class="l">
+                        <select id="ddlSort" class="w100 inputtext">
+                            <option value="1" selected="selected">Match Date</option>
+                            <option value="2">League</option>
+                        </select>
+                    </td>
+                    <td class="l w90">
+                        <label>
+                            Refresh Time:</label>
+                    </td>
+                    <td class="l">
+                        <select id="ddlRefreshTime" class="w80 inputtext">
+                            <option value="10" selected="selected">10 sec</option>
+                            <option value="15">15 sec</option>
+                            <option value="30">30 sec</option>
+                            <option value="60">60 sec</option>
+                            <option value="90">90 sec</option>
+                            <option value="120">120 sec</option>
+                            <option value="0">Never</option>
+                        </select>
+                    </td>
+                    <td class="w80 r">
+                        <input type="button" id="btnRefresh" class="btn" value="Refresh" />
+                    </td>
+                </tr>
+            </table>
+            <table id="tblHours" style="margin-top: 6px; width: 100%;">
+            </table>
+            <div id="reportInfo" class="hidden" style="margin-top: 6px;">
+                <div id="infoInstantReport">
+                    <span id="currDate"></span>&nbsp;&nbsp;<span class="timeSelections">Time Selection:
+                        <span id="timeSelections" class="b">All Period</span></span> &nbsp;&nbsp;<span class="spmatch">FT
+                            Match(s)</span> <span id="runningMatch" class="disabled">[SP Match(s)]</span>
+                    <span id="completeMatch">[FT Match(s)]</span> &nbsp;&nbsp;<a href="javascript:void(0);"
+                        id="btnHideDetail">[Hide]</a> <a href="javascript:void(0)" id="btnShowAllDetail">[Show
+                            ALL]</a> [Match(s) Hidden:<span id="matchsHidden">0</span>][Acc(s) Hidden:<span id="accountHidden">0</span>
+                    ][League(s) Hidden:<span id="leagueHidden">0</span>]
+                </div>
+            </div>
+        </div>
+        <div id="msg" style="width: 100%;">
+        </div>
+    </div>
+    <div id="contentSection" style="padding-top: 205px;">
+        <div id="reportGrid" style="margin-top: 6px;" class="hidden">
+            <table class="oceanTbl" id="tblInstantReport" style="width: 100%">
+                <thead>
+                    <tr class="header">
+                        <td class="col25 c">
+                            <input type="checkbox" id="chkInstantReport" checked="checked" />
+                        </td>
+                        <td class="col25 c">
+                            #
+                        </td>
+                        <td class="col60 c">
+                            Match DT
+                        </td>
+                        <td class="col260 c">
+                            League - Match Detail
+                        </td>
+                        <td class="c">
+                            Home
+                        </td>
+                        <td class="c">
+                            Away
+                        </td>
+                        <td class="c">
+                            Over
+                        </td>
+                        <td class="c">
+                            Under
+                        </td>
+                        <td class=" c">
+                            1
+                        </td>
+                        <td class=" c">
+                            X
+                        </td>
+                        <td class="c">
+                            2
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="hidden" id="multipleSelection">
+        <div id="accountSelection">
+            <label>
+                Grade Color:</label>
+            <select id="ddlColor" class="w100 inputtext colorpicker" onchange="multipleSelection.onchangeColor();">
+            </select>
+            <div style="margin-top: 6px;">
+                <div>
+                    <a href="javascript:void(0)" id="lnkShowAccount">[Show/Hide]</a></div>
+                <div id="gridMember" class="content-warper hidden" style="margin-top: 2px;">
+                    <div class="content-header clearfix">
+                        <div class="header-scroll">
+                            <table class="tbl-header-scroll">
+                                <tr>
+                                    <td style="border-bottom: none 0px;">
+                                        <div class="col25 c">
+                                            <input type="checkbox" id="chkmember" checked="checked" /></div>
+                                    </td>
+                                    <td style="border-bottom: none 0px;">
+                                        <div class="col120 c">
+                                            Account Name</div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="content-body clearfix">
+                        <div class="body-scroll">
+                            <table id="tblMember" class="tbl-body-scroll">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="leagueSelection">
+            <label>
+                Date:</label>
+            <input class="inputtext" id="txtDateMultiple" disabled="disabled" readonly="readonly" />
+            <div style="margin-top: 8px;">
+                <div>
+                    <a href="javascript:void(0)" id="lnkShowLeague" onclick="multipleSelection.lnkShowLeague();">
+                        [Show/Hide]</a></div>
+                <div id="gridLeague" class="content-warper hidden" style="margin-top: 2px;">
+                    <div class="content-header clearfix">
+                        <div class="header-scroll">
+                            <table class="tbl-header-scroll">
+                                <tr>
+                                    <td style="border-bottom: none 0px;">
+                                        <div class="col25 c">
+                                            <input type="checkbox" id="chkleague" checked="checked" /></div>
+                                    </td>
+                                    <td style="border-bottom: none 0px;">
+                                        <div class="col460 c">
+                                            League Name</div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="content-body clearfix">
+                        <div class="body-scroll">
+                            <table id="tblLeague" class="tbl-body-scroll">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form id="sendQueryStringForm" name="sendQueryStringForm" onsubmit="window.open('','postformname');"  action="@Url.Action("InstantReportDetailPage", "InstantReport")" method="post" style="display:none;" target="postformname">
+        <input type="hidden" id="KickOffDateInput" name="KickOffDateInput" />
+        <input type="hidden" id="KickOffTimeInput" name="KickOffTimeInput" />
+        <input type="hidden" id="LeagueIdsInput" name="LeagueIdsInput" />
+        <input type="hidden" id="PunterIdsInput" name="PunterIdsInput" />
+        <input type="hidden" id="EventStatusInput" name="EventStatusInput" />
+        <input type="hidden" id="matchIDInput" name="matchIDInput" />
+        <input type="hidden" id="matchCodeInput" name="matchCodeInput" />
+        <input type="hidden" id="bettypeInput" name="bettypeInput" />
+    </form>
+    <script src="~/Scripts/Lib/head.load.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/jquery.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/Jlinq/jlinq.jquery.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/json2.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/UI/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/utils/jquery.button.js" type="text/javascript"></script>
+    <script src="~/Scripts/Common.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/MultipleSelect/jquery.multiselect.js" type="text/javascript"></script>
+    <script src="~/Views/Report/Scripts/InstantReport.js?ver=@WebSettings.Version" type="text/javascript"></script>
+    <script type="text/javascript">
+        var colorFilter = "@ViewBag.ColorFilter";
+        var toDate = "@ViewBag.ToDate";
+        //        head.js("~/Scripts/Lib/jquery.min.js", function () {
+        //            head.js("~/Scripts/Lib/Jlinq/jlinq.jquery.js")
+        //                .js("~/Scripts/Lib/json2.js")
+        //                .js("~/Scripts/Lib/UI/jquery-ui-1.8.16.custom.min.js")
+        //                .js("~/Scripts/Lib/utils/jquery.button.js")
+        //                .js("~/Scripts/Common.js")
+        //                .js("~/Scripts/Lib/MultipleSelect/jquery.multiselect.js")
+        //                .js("~/Views/Report/Scripts/InstantReport.js?ver=@WebSettings.Version")
+        //                ;
+        //        });
+
+    </script>
+</body>
+</html>

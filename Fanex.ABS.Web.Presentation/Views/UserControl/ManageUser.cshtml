@@ -1,0 +1,564 @@
+﻿@using Fanex.ABS.Infrastructure.Configurations;
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>Manage Users</title>
+    <link href="~/Content/Ocean/Grid.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Ocean/StyleSheet.css?ver=1" rel="stylesheet" type="text/css" />
+    <link href="~/Scripts/Lib/MultipleSelect/jquery.nextreeview.css" rel="stylesheet"
+        type="text/css" />
+    <script src="~/Scripts/Lib/jquery.1.6.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/Jlinq/jlinq.jquery.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/gridscroller.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/Template/jquery.tmpl.js" type="text/javascript"></script>
+    <script src="~/Scripts/Common.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/Jlinq/jlinq.jquery.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/autocomplete/jquery.autocomplete.client.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/autocomplete/jquery.highlight-3.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/Popup/js/centreIt-1.1.5.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/jquery.imgpreload.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/Popup/js/jquery.popup.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/utils/jquery.button.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/MultipleSelect/jquery.nextreeview.js"></script>
+</head>
+<body>
+    <input id="hGroupName" type="hidden" value="@ViewBag.DeptName" />
+    <input id="hSystemName" type="hidden" value="@ViewBag.SystemName" />
+    <input id="hUserID" type="hidden" value="@Fanex.ABS.Web.Controllers.Helper.AppSession.UserId.ToString()" />
+    <input id="hABDGroupID" type="hidden" value="@ViewBag.ABDGroupID" />
+    <div id="headerSection">
+        <a href="javascript:void(0)" id="btnToggle" class="toggler" title="Expand/Collapse">
+            &nbsp;</a>
+        <div class="pageTitle">
+            Manage User</div>
+        <div class="filterSection" id="filterSection" style="width: 895px;">
+            <div class="w150">
+                <input id="btnAddNewUser" type="button" class="btn" value="New User" style="margin-top: 6px;
+                    margin-left: 6px;" />
+            </div>
+            <table border="0">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="w70">
+                                <label>
+                                    Username:</label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="w125">
+                                <input id="tbxUserName" type="text" class="w120 inputtext" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="w150">
+                                <input id="btnSearch" type="button" class="btn" value="Search" style="margin-left: 2px" />
+                            </div>
+                        </td>
+                        <td align="right">
+                            <div style="width: 410px;">
+                                <label class="r" style="color: #0066CC;">
+                                    Active Account</label>
+                            </div>
+                            <div class="w160">
+                                <label id="lblNumActive" style="color: #0066CC;">
+                                    0</label>
+                            </div>
+                        </td>
+                        <td width="0.5" bgcolor="#999999">
+                        </td>
+                        <td>
+                            <div class="w260">
+                                <label>
+                                    InActive Account</label>
+                            </div>
+                            <div class="w160">
+                                <label id="lblNumInActive">
+                                    0</label>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="msg">
+            </div>
+        </div>
+    </div>
+    <div class="contentSection" id="contentSection" style="float: left; padding-top: 112px;">
+        <div id="userGrid" class="content-warper hidden" style="border-right: 0px; border-bottom: 0px;">
+            <div class="content-header clearfix">
+                <div class="header-scroll">
+                    <table class="tbl-header-scroll">
+                        <tr>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col40 c">
+                                    #</div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div id="divUserNameHeader" class="col160 c">
+                                    User Name</div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col120 c">
+                                    Display Name</div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col80 c">
+                                    Creator</div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col160 c">
+                                    Create Date</div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col80 c">
+                                    Edit</div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col80 c">
+                                    Assign</div>
+                                <div class="col80 c">
+                                    Punter Code</div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col80 c">
+                                    Active</div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col80 c">
+                                    Password</div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="content-body clearfix">
+                <div class="body-scroll" style="overflow: hidden;">
+                    <table class="tbl-body-scroll">
+                        <tbody id="tbodyMemList">
+                        </tbody>
+                    </table>
+                    <script id="scriptTemplate" type="text/html">
+                    <tr
+                    {{if Status=="Closed"}}
+                        class="closedacc"
+                    {{else index % 2 != 0}}
+                        class="evenrow"
+                    {{/if}}
+                    ><td>
+                            <div class="col40 c">${index}</div>
+                        </td><td>
+                            <div class="col160 c" style="color:#0066CC;">${UserName}</div>
+                            <input type="hidden" username="true" value="${UserName}" />
+                        </td><td>
+                            <div class="col120 c">${FName}</div>
+
+                        </td><td>
+                            <div class="col80 c">${Creator}</div>
+                        </td><td>
+                            <div class="col160 c">${CreatedDate}</div>
+                        </td><td>
+                            <div policy="true" class="col80 c blue" style="cursor:pointer">
+                                 <input type="button" title="Edit" class="btnEdit" onclick="" />
+                                 <input type="hidden" userid="true" value="${UserId}" />
+                                 <input type="hidden" displayname="true" value="${FName}" />
+                            </div>
+                        </td><td>
+                            <div class="col80 c" assignpunter="true">
+                                <input type="button" title="Edit" class="btnEdit" onclick="" />
+                                <input type="hidden" userid="true" value="${UserId}" />
+                            </div>
+                        </td><td>
+                            <div class="col80 c" useractive="true">
+                                <input type="checkbox"
+                                {{if Status=="Active"}}
+                                    checked="checked"
+                                {{/if}}
+                                />
+                                <input type="hidden" username="true" value="${Status}" />
+                                <input type="hidden" userid="true" value="${UserId}" />
+                            </div>
+                        </td><td>
+                            <div class="col80 c blue" editpass="true">
+                                <input type="button" title="Edit" class="btnEdit" onclick="" />
+                                <input type="hidden" userid="true" value="${UserId}" />
+                            </div>
+                        </td>
+                    </tr>
+                    </script>
+                    <script id="scriptTemplate2" type="text/html">
+                        <tr><td>
+                            <div class="c" style="width:861px">There is no information!</div>
+                            </td>
+                        </tr>
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="policyGridSection" class="contentSection">
+        <div id="policyGrid" class="content-warper hidden">
+            <div id="displayName" class="">
+                <div class="b tbl-header-scroll" style="background-color: #3B5998;">
+                    <label style="padding-left: 10px; color: White;">
+                        User Information</label>
+                </div>
+                <div>
+                    <table id="tbChangeFirstName" border="0" cellpadding="2" class="filterSection" style="width: 100%;
+                        background-color: White;">
+                        <tr>
+                            <td colspan="2">
+                                <label style="color: red; font-weight: normal;" id="showErrorChangeUserName">
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="r w120">
+                                <label style="color: Black;">
+                                    Display Name:</label>
+                            </td>
+                            <td class="l">
+                                <input type="text" id="txtChangeDisplayName" class="w120 inputtext" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            @*  <div class="b tbl-header-scroll" style="background: #dddddd;">
+                <label style="padding-left: 10px;">
+                    User Policy</label>
+            </div>*@
+            <div class="content-header clearfix">
+                <div class="header-scroll">
+                    <table class="tbl-header-scroll">
+                        <tr>
+                            <td rowspan="2" style="border-bottom: none 0px;">
+                                <div class="col360 c">
+                                    Function</div>
+                            </td>
+                            <td colspan="2">
+                                <div class="c">
+                                    Individual Permission</div>
+                            </td>
+                            <td colspan="2">
+                                <div class="c">
+                                    Group Permission</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col100 c">
+                                    Read</div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col100 c">
+                                    Host</div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col100 c">
+                                    Read</div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col100 c">
+                                    Host</div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="content-body clearfix">
+                <div class="body-scroll">
+                    <table class="tbl-body-scroll">
+                        <tbody id="tbodyUserPol">
+                        </tbody>
+                    </table>
+                    <script id="scriptTempaltePolicy" type="text/html">
+                        <tr level="${level}" _id="${ID}" parentID="${ParentId}" TotalSub="${TotalSub}"><td>
+                                <div class="col360 l">
+                                    <span icon="true"
+                                    {{if TotalSub != 0}}
+                                        class="tree-expanded">
+                                    {{else}}
+                                        >&nbsp;
+                                    {{/if}}
+                                    </span>
+                                    <span funcname="true">${FuncDesc}</span>
+                                    <input type="hidden" value="${level}" level="true" />
+                                    <input type="hidden" value="${ID}" funcid="true" />
+                                    <input type="hidden" value="${TotalSub}" TotalSub="true" />
+                                </div>
+                            </td><td>
+                                <div class="col100 c">
+                                    <input type="checkbox" cbxRead="true"
+                                    {{if IsRead}}
+                                        checked="checked"
+                                    {{/if}}
+                                     />
+                                </div>
+                            </td><td>
+                                <div class="col100 c">
+                                    <input type="checkbox" cbxHost="true"
+                                    {{if IsHost}}
+                                        checked="checked"
+                                    {{/if}}
+                                    />
+                                </div>
+                            </td><td>
+                                <div class="col100 c">
+                                    <input type="checkbox" disabled="disabled"
+                                    {{if IsGroupRead}}
+                                        checked="checked"
+                                    {{/if}}
+                                     />
+                                </div>
+                            </td><td>
+                                <div class="col100 c">
+                                    <input type="checkbox" disabled="disabled"
+                                    {{if IsGroupHost}}
+                                        checked="checked"
+                                    {{/if}}
+                                    />
+                                </div>
+                            </td>
+                        </tr>
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="passswordSection" class="contentSection">
+        <div id="passwordLayout" class="content-warper hidden">
+            <div class="filterSection">
+                <input type="hidden" id="hiddenUserId" runat="server" />
+                <div id="changePassPopup" style="color: Red;">
+                </div>
+                <table id="tblAddMember" border="0" cellpadding="2">
+                    <tr>
+                        <td class="r w120">
+                            <label>
+                                Password:</label>
+                        </td>
+                        <td class="l">
+                            <input type="password" id="txtPassword" class="w120 inputtext" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="r">
+                            <label>
+                                Confirm Password:</label>
+                        </td>
+                        <td class="b l">
+                            <input type="password" id="txtConfirmPassword" class="w120 inputtext" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="createUserSection" class="contentSection">
+        <div id="createUserlayout" class="content-warper hidden" style="margin-top: 20px;">
+            <div id="userGeneralInfo">
+                <div class="b filterSection" style="background: #dddddd;">
+                    <label style="font-size: large;">
+                        General Information</label>
+                </div>
+                <div class="b filterSection" style="height: 135px;">
+                    <div id="insertPopUpMsg" style="color: Red; font-weight: normal;">
+                    </div>
+                    <table id="tbUserinfo" border="0" cellpadding="2">
+                        <tr>
+                            <td class="r w100">
+                                <label>
+                                    User Name:</label>
+                            </td>
+                            <td class="l">
+                                <input type="text" id="txtNewUserName" class="inputtext w150" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="r w120">
+                                <label>
+                                    Password:</label>
+                            </td>
+                            <td class="l">
+                                <input type="password" id="txtNewUserPass" class="w150 inputtext" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="r w120">
+                                <label>
+                                    Confirm Password:</label>
+                            </td>
+                            <td class="l">
+                                <input type="password" id="txtNewUserConfirmPassword" class="w150 inputtext" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="r">
+                                <label>
+                                    Display Name:</label>
+                            </td>
+                            <td class="b l">
+                                <input type="text" id="txtDisplayName" class="w150 inputtext" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="r">
+                                <label>
+                                    Status:</label>
+                            </td>
+                            <td class="l">
+                                <input type="checkbox" id="cbNewUserStatus" checked="checked" disabled="disabled"
+                                    style="width: 10px;" />
+                                <label for="cbNewUserStatus" class="l" style="padding-bottom: 8px;">
+                                    Active</label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div id="userGrantPermission" class="hidden">
+                <div class="b filterSection" style="background: #dddddd;">
+                    <label>
+                        Insert Successfully!</label>
+                    <label id="lblPleaseWait">
+                        Please Wait 3 Seconds to Grant Permission.</label>
+                    <label id="lblGoToGrantPer" class="blue">
+                        Click Here to Grant Permission.</label>
+                    <input type="hidden" id="hdNewUserID" />
+                    <input type="hidden" id="popUpNeedClose" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="assignPunterCodesSection" class="contentSection">
+        <div id="assignPunterCodeLayout" class="content-warper hidden" style="background-color: #EEEEEE;">
+            <table>
+                <tr>
+                    <td style="width: 30%;">
+                        <div class="content-header clearfix tbl-header-scroll b" style="background-color: #3B5998;
+                            padding: 2px;">
+                            Assign Punter Codes
+                        </div>
+                        <div class="content-body clearfix">
+                            <table id="Table1" border="0" cellpadding="2">
+                                <tr>
+                                    <td class="r" style="width: 80%;">
+                                        <input type="text" id="txtAssignPunterCodeSearch" class="inputtext" style="width: 100%;
+                                            font-style: italic;" />
+                                    </td>
+                                    <td class="l">
+                                        <input type="button" class="btn" value="Search" id="btnPunterCodeSearch" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <div id="puntercodeTreeView">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="r">
+                                        <input type="button" class="btn" style="width: 110px;" value="Add Punter Codes" id="btnAddPunterCodes" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                    <td width="10" bgcolor="#999999">
+                    </td>
+                    <td style="width: 60%; border-right-width: thick; border-color: #3B5998; position: absolute;">
+                        <div class="header-scroll content-header clearfix">
+                            <table class="tbl-header-scroll">
+                                <tr>
+                                    <td>
+                                        <div class="col40 c">
+                                            #</div>
+                                    </td>
+                                    <td>
+                                        <div class="c col260">
+                                            Assigned Punter Codes</div>
+                                    </td>
+                                    <td>
+                                        <div class="c col110">
+                                            <input type="checkbox" checklallpuntercode="true" id="cbCheckAllPunter" />
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="content-body clearfix">
+                            <div class="body-scroll" style="height: 380px; overflow-y: auto;">
+                                <table class="tbl-body-scroll">
+                                    <tbody id="tbodyPunterCodeUpdate">
+                                    </tbody>
+                                </table>
+                                <script id="scriptTempPunterCodeUpdate" type="text/html">
+                                 {{if IsChild}}
+                                       <tr>
+                                    {{else}}
+                                        <tr class="evenrow">
+                                    {{/if}}
+
+                                        <td >
+                                            <div class="col40 c">
+                                                ${Number}</div>
+                                        </td>
+                                        <td>
+                                            <div class="c col240 l" style="color:${Color};
+                                             {{if IsChild}}
+                                                    margin-left: 20px;
+                                             {{else}}
+                                                  font-weight:bold;
+                                             {{/if}}
+                                                ">
+                                                ${Text}</div>
+                                        </td>
+                                        <td>
+                                            <div class="c" style="width:110px;">
+                                                <input type="checkbox" groupId="${GroupId}"
+                                                {{if IsChild}}
+                                                    punterValue="true"
+                                                {{/if}}
+
+                                                {{if Checked}}
+                                                    checked="checked"
+                                                {{/if}}
+
+                                                />
+                                                <input type="hidden" value="${Id}" punterCodeId="true" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </script>
+                            </div>
+                            <div class="r">
+                                @*     <label id="lbTotalRemove" style="float: left; font-weight: normal">
+                                    Total: 0 selected</label>*@
+                                <input type="button" class="btn" value="Remove Punter Codes" id="btnRemovePunterCodes" />
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div id="divmsgAssignPunter">
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var strUpdateRoleSuccess = "@ViewBag.strUpdateRoleSuccess";
+        var strPasswordEmpty = "@ViewBag.strPasswordEmpty";
+        var strPassswordAtLeast4 = "@ViewBag.strPassswordAtLeast4";
+        var strConfirmPassword = "@ViewBag.strConfirmPassword";
+        var strPasswordNotCorrectConfirm = "@ViewBag.strPasswordNotCorrectConfirm";
+        var strEnterUsername = "@ViewBag.strEnterUsername";
+        var strUpdateStatus = "@ViewBag.strUpdateStatus";
+        var strUpdateUserInformation = "@ViewBag.strUpdateUserInformation";
+        var colorFilter = "@ViewBag.ColorFilter";
+    </script>
+    <script src="~/Views/UserControl/Scripts/ManageUser.js?ver=@WebSettings.Version" type="text/javascript"></script>
+</body>
+</html>

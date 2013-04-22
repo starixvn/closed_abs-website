@@ -1,0 +1,11 @@
+<Modules>
+  <Module PersistentId="F47F6A6B-D7CA-4A08-9F57-EFF2EFBD004F" ModuleId="Fanex.ABS.Web.Controllers" />
+  <Module PersistentId="E0174EF5-4DDD-482B-A841-8C9CAD87E2F8" ModuleId="Fanex.ABS.Service.Interface" />
+  <Module PersistentId="DDFB5A5A-DCC8-4BBB-B734-604A648948C6" ModuleId="Fanex.ABS.Infrastructure" />
+  <Module PersistentId="4810926F-6C13-4D00-9F61-0ADEC8BB8E18" ModuleId="Fanex.ABS.Service.Impl" />
+  <Module PersistentId="136D37C4-AECA-42C5-818A-DCCE7049EA3E" ModuleId="Fanex.ABS.DataAccess.Interface" />
+  <Module PersistentId="904EBE81-CA90-4E02-B1FC-41ADEF760410" ModuleId="Fanex.ABS.DataAccess.Impl" />
+  <Module PersistentId="45F7A744-1327-4570-B74E-936FC29D7027" ModuleId="Fanex.ABS.Entities" />
+  <Module PersistentId="02652549-0A29-4D0B-8A87-172DCE3592FE" ModuleId="Fanex.ABS.Web.Presentation" />
+  <Module PersistentId="ADF9E0B2-24CC-45F6-BD10-FEF6D8CC9873" ModuleId="Fanex.ABS.Web.Models" />
+</Modules>

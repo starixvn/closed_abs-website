@@ -1,0 +1,7 @@
+D:\WORK\PROJECT\ROME1\ABS\Main\SourceCodeMVC\ABS\Fanex.ABS.DataAccess.Interface\bin\Debug\Fanex.ABS.DataAccess.Interface.dll
+D:\WORK\PROJECT\ROME1\ABS\Main\SourceCodeMVC\ABS\Fanex.ABS.DataAccess.Interface\bin\Debug\Fanex.ABS.DataAccess.Interface.pdb
+D:\WORK\PROJECT\ROME1\ABS\Main\SourceCodeMVC\ABS\Fanex.ABS.DataAccess.Interface\bin\Debug\Fanex.ABS.Entities.dll
+D:\WORK\PROJECT\ROME1\ABS\Main\SourceCodeMVC\ABS\Fanex.ABS.DataAccess.Interface\bin\Debug\Fanex.ABS.Entities.pdb
+D:\WORK\PROJECT\ROME1\ABS\Main\SourceCodeMVC\ABS\Fanex.ABS.DataAccess.Interface\obj\Debug\ResolveAssemblyReference.cache
+D:\WORK\PROJECT\ROME1\ABS\Main\SourceCodeMVC\ABS\Fanex.ABS.DataAccess.Interface\obj\Debug\Fanex.ABS.DataAccess.Interface.dll
+D:\WORK\PROJECT\ROME1\ABS\Main\SourceCodeMVC\ABS\Fanex.ABS.DataAccess.Interface\obj\Debug\Fanex.ABS.DataAccess.Interface.pdb

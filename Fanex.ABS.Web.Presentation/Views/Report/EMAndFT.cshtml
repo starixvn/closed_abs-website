@@ -1,0 +1,1500 @@
+﻿@using Fanex.ABS.Infrastructure.Configurations;
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>EM & FT</title>
+    <link href="~/Scripts/Lib/UI/css/custom-theme/jquery-ui-1.8.10.custom.css" rel="stylesheet"
+        type="text/css" />
+    <link href="~/Views/Report/Styles/InstantReport.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Ocean/Grid.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Ocean/StyleSheet.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        body
+        {
+            float: left;
+        }
+        .c
+        {
+            text-align: center !important;
+        }
+        .bgheader
+        {
+            background-color: #DBE5F9 !important;
+            color: #000;
+        }
+        .col-event
+        {
+            width: 849px;
+        }
+        .col655
+        {
+            white-space: normal;
+            width: 455px;
+            word-wrap: break-word;
+        }
+        .col580
+        {
+            white-space: normal;
+            width: 571px;
+            word-wrap: break-word;
+        }
+        .b-top
+        {
+            border-top: 1px solid #BABABA !important;
+        }
+        .nb-bottom
+        {
+            border-bottom: none !important;
+        }
+        .nb-right
+        {
+            border-right: none !important;
+        }
+        .upper
+        {
+            text-transform: uppercase;
+        }
+        .uc-first
+        {
+            text-transform: capitalize;
+        }
+        .teamname
+        {
+            padding-left: 6px;
+            text-align: left;
+        }
+        .ht
+        {
+            color: #6678E0;
+        }
+        .at
+        {
+            color: #008D95;
+        }
+        .htsc
+        {
+            color: #6877B4;
+        }
+        .red
+        {
+            color: #FF0000;
+        }
+        div.leaguename
+        {
+            float: left;
+            width: 942px;
+            padding-left: 10px;
+            cursor: pointer;
+        }
+        div.leaguename span
+        {
+            background: url("@Url.Content("~/Views/Report/images/icon_arrow_down.gif")") no-repeat scroll left center transparent;
+            padding-left: 20px;
+        }
+        div.leaguename span.up
+        {
+            background: url("@Url.Content("~/Views/Report/images/icon_arrow_up.gif")") no-repeat scroll left center transparent;
+        }
+        .content-warper
+        {
+            float: left;
+        }
+        .bg-league
+        {
+            background-color: #EDECEB;
+        }
+        /** collapse **/
+        div.collapse
+        {
+            cursor: pointer;
+        }
+        div.collapse span
+        {
+            background: url("@Url.Content("~/Views/Report/images/icon_down.gif")") no-repeat scroll left top transparent;
+            padding-left: 20px;
+        }
+        div.collapse span.up
+        {
+            background: url("@Url.Content("~/Views/Report/images/icon_up.gif")") no-repeat scroll left top transparent !important;
+        }
+        /**max height**/
+        .scroll-height
+        {
+            overflow: hidden;
+            width: 954px;
+        }
+        .event-764
+        {
+            width: 764px;
+        }
+        .event-711
+        {
+            width: 711px;
+        }
+        .event-652
+        {
+            width: 652px;
+        }
+        .event-571
+        {
+            width: 571px;
+        }
+        .event-431
+        {
+            width: 431px;
+        }
+        .event-574
+        {
+            width: 574px;
+        }
+        .noinfo
+        {
+            text-align: center;
+            width: 952px;
+        }
+        .goal-history
+        {
+            color: #0000FF;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="headerSection">
+        <a href="javascript:void(0)" id="btnToggle" class="toggler" title="Expand/Collapse">
+            &nbsp;</a>
+        <div class="pageTitle">
+            EM & FT</div>
+        <div class="filterSection" id="filterSection" style="width: 942px">
+            <table id="reportFilter">
+                <tr>
+                    <td class="r">
+                        <label>
+                            Date:</label>
+                    </td>
+                    <td class="l">
+                        <input class="inputtext txtdate" id="txtdate" readonly="readonly" style="width: 80px;" />
+                    </td>
+                    <td class="r w60">
+                        <label>
+                            Leagues:</label>
+                    </td>
+                    <td class="l">
+                        <select id="ddlLeague" class="w260 inputtext">
+                        </select>
+                    </td>
+                    <td class="w80 r">
+                        <input type="button" id="btnSubmit" class="btn" value="Submit" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="msg" style="width: 100%;">
+        </div>
+    </div>
+    <div id="contentSection" style="padding-top: 74px;">
+    </div>
+    <script id="tpl-soccer" type="text/html">
+        <div class="content-warper" style="margin-top: 6px; width: 954px;">
+            <div class="content-header clearfix" >
+                <div class="header-scroll" style="width:954px">
+                    <table class="tbl-header-scroll" style="">
+                        <tbody>
+                            <tr valign="middle" style="height: 25px">
+                                <td colspan="8" class="nb-right">
+                                    <div style="float:left" class="col100 upper collapse" rel="${ID}"><span id="sport_${ID}">${Name}</span></div>
+                                    <div style="float:left" class="col-event c collapse" rel="${ID}">
+                                        EVENT ${EventDate}
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="header_${ID}" align="center">
+                                <td class="bgheader">
+                                    <div class="col100">MATCH-CODE</div>
+                                </td>
+                                <td class="bgheader">
+                                    <div class="col120">KICK-OFF TIME</div>
+                                </td>
+                                <td class="bgheader">
+                                    <div class="col655 teamname" style="text-align:center!important;">EVENT</div>
+                                </td>
+                                <td class="bgheader">
+                                    <div class="col50">HT<br>
+                                    SCORE</div>
+                                </td>
+                                <td class="bgheader">
+                                    <div class="col50">FINAL<br>
+                                    SCORE</div>
+                                </td>
+                                <td class="bgheader">
+                                    <div class="col25">FG</div>
+                                </td>
+                                <td class="bgheader">
+                                    <div class="col25">LG</div>
+                                </td>
+                                <td class="bgheader">
+                                    <div class="col100">EVENT<br>
+                                    STATUS</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="l_sport_${ID}" class="content-body clearfix nb-bottom">
+                <div class="body-scroll scroll-height" style="overflow:hidden;">
+                    <table class="tbl-body-scroll" style="">
+                        <tbody>
+                            {{html $item.genLeague($data.Leagues) }}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script id="tpl-soccer-league" type="text/html">
+        <tr class="l">
+            <td colspan="8" class="bg-league">
+                <div class="b leaguename" rel="${League}"><span id="league_${League}" rel="${Sport}">${LeagueName}</span></div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8" style="padding:0px 0px; border: none;">
+                <div id="m_league_${League}"><table id="tbl_league_${League}" class="tbl-body-scroll"><tbody>
+                    {{if Matches.length}}
+                    {{else}}
+                    <tr class="c">
+                        <td colspan="8"><div class="noinfo">There is no information.</div></td>
+                    </tr>
+                    {{/if}}
+                </tbody></table></div>
+            </td>
+        </tr>
+    </script>
+    <script id="tpl-soccer-row" type="text/html">
+        <tr class="league_${League} l">
+            <td rowspan="2">
+                <div class="col100 c">${Code}</div>
+            </td>
+            <td rowspan="2">
+                <div class="col120">${KickOffTime}</div>
+            </td>
+            <td class="nb-bottom">
+                <div class="col655 b teamname ht"><span id="home_${ID}">${HTeam}</span></div>
+            </td>
+            <td class="nb-bottom">
+               <div class="col50 c htsc">${Param.Score.HomeHT}</div>
+            </td>
+            <td class="nb-bottom">
+                <div class="col50 c red">${Param.Score.HomeFT}</div>
+            </td>
+            <td class="nb-bottom">
+                <div class="col25 c">${Param.Goal.HomeFG}</div>
+            </td>
+            <td class="nb-bottom">
+                <div class="col25 c">${Param.Goal.HomeLG}</div>
+            </td>
+            <td rowspan="2">
+                <div class="col100 c">
+                    <span class="uc-first" history="${Param.Goal.History}">${Status}</span>
+                    {{if Param.Goal.History != null && Param.Goal.History != ""}}
+                    <br />
+                    <a title="View goal history" class="goal-history" href="javascript:;" rel="${League}|${ID}" his="${Param.Goal.History}"><span>[i]</span></a>
+                    {{/if}}
+                </div>
+            </td>
+        </tr>
+        <tr class="league_${League} c">
+            <td>
+                <div class="col655 b teamname at b-top"><span id="away_${ID}">${ATeam}</span></div>
+            </td>
+            <td>
+                <div class="col50 c b-top htsc">${Param.Score.AwayHT}</div>
+            </td>
+            <td>
+                <div class="col50 c b-top red">${Param.Score.AwayFT}</div>
+            </td>
+            <td>
+                <div class="col25 c b-top">${Param.Goal.AwayFG}</div>
+            </td>
+            <td>
+                <div class="col25 c b-top">${Param.Goal.AwayLG}</div>
+            </td>
+        </tr>
+    </script>
+    <script id="tpl-basketball" type="text/html">
+            <div class="content-warper" style="margin-top: 6px; width: 1172px;">
+                <div class="content-header clearfix" >
+                    <div class="header-scroll" style="width:1172px">
+                        <table class="tbl-header-scroll" style="">
+                            <tbody>
+                                <tr valign="middle" style="height: 25px">
+                                    <td colspan="11" class="nb-right">
+                                        <div style="float:left" class="col100 upper collapse" rel="${ID}"><span>${Name}</span></div>
+                                        <div style="float:left" class="col-event c collapse" rel="${ID}">
+                                            EVENT ${EventDate}
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="header_${ID}" align="center">
+                                    <td class="bgheader" style="">
+                                        <div class="col100">MATCH-CODE</div>
+                                    </td>
+                                    <td class="bgheader" style="">
+                                        <div class="col120">KICK-OFF TIME</div>
+                                    </td>
+                                    <td class="bgheader">
+                                        <div class="event-571 teamname">EVENT</div>
+                                    </td>
+                                    <td class="bgheader" style="">
+                                        <div class="col25">1Q</div>
+                                    </td>
+                                    <td class="bgheader" style="">
+                                        <div class="col25">2Q</div>
+                                    </td>
+                                    <td class="bgheader" style="">
+                                        <div class="col25">3Q</div>
+                                    </td>
+                                    <td class="bgheader" style="">
+                                        <div class="col25">4Q</div>
+                                    </td>
+                                    <td class="bgheader" style="">
+                                        <div class="col25">OT</div>
+                                    </td>
+                                    <td class="bgheader" style="">
+                                        <div class="col50">HT<br />SCORE</div>
+                                    </td>
+                                    <td class="bgheader" style="">
+                                        <div class="col50">FINAL<br />SCORE</div>
+                                    </td>
+                                    <td class="col100 bgheader" style="">
+                                        <div class="col100">EVENT<br>
+                                        STATUS</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="l_sport_${ID}" class="content-body clearfix nb-bottom">
+                    <div class="body-scroll scroll-height" style="overflow:hidden;">
+                        <table class="tbl-body-scroll" style="">
+                            <tbody>
+                                {{tmpl(Leagues) "#tpl-basketball-league"}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+    </script>
+    <script id="tpl-basketball-league" type="text/html">
+        <tr class="l">
+            <td colspan="11" class="bg-league">
+                <div class="b leaguename" rel="${League}"><span id="league_${League}" rel="${Sport}">${LeagueName}</span></div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="11" style="padding:0px 0px; border: none;">
+                <div id="m_league_${League}"><table class="tbl-body-scroll"><tbody>
+                    {{if Matches.length}}
+                    {{tmpl(Matches) "#tpl-basketball-row"}}
+                    {{else}}
+                    <tr class="c">
+                        <td colspan="11"><div class="noinfo">There is no information.</div></td>
+                    </tr>
+                    {{/if}}
+                </tbody></table></div>
+            </td>
+        </tr>
+    </script>
+    <script id="tpl-basketball-row" type="text/html">
+        <tr class="league_${League} l">
+            <td rowspan="2">
+                <div class="col100 c">${Code}</div>
+            </td>
+            <td rowspan="2">
+                <div class="col120">${KickOffTime}</div>
+            </td>
+            <td class="nb-bottom">
+                <div class="event-571 b teamname ht">${HTeam}</div>
+            </td>
+            <td class="nb-bottom">
+               <div class="col25 c">${Param.NumQ.Home1Q}</div>
+            </td>
+            <td class="nb-bottom">
+                <div class="col25 c">${Param.NumQ.Home2Q}</div>
+            </td>
+            <td class="nb-bottom">
+               <div class="col25 c">${Param.NumQ.Home3Q}</div>
+            </td>
+            <td class="nb-bottom">
+                <div class="col25 c">${Param.NumQ.Home4Q}</div>
+            </td>
+            <td class="nb-bottom">
+               <div class="col25 c">${Param.NumQ.HomeOT}</div>
+            </td>
+            <td class="nb-bottom">
+                <div class="col50 c htsc">${Param.Score.HomeHT}</div>
+            </td>
+            <td class="nb-bottom">
+                <div class="col50 c red">${Param.Score.HomeTS}</div>
+            </td>
+            <td rowspan="2">
+                <div class="col100 c uc-first">${Status}</div>
+            </td>
+        </tr>
+        <tr class="league_${League} c">
+            <td>
+                <div class="event-571 b teamname at b-top">${ATeam}</div>
+            </td>
+            <td>
+                <div class="col25 c b-top">${Param.NumQ.Away1Q}</div>
+            </td>
+            <td>
+                <div class="col25 c b-top">${Param.NumQ.Away2Q}</div>
+            </td>
+            <td>
+                <div class="col25 c b-top">${Param.NumQ.Away3Q}</div>
+            </td>
+            <td>
+                <div class="col25 c b-top">${Param.NumQ.Away4Q}</div>
+            </td>
+            <td>
+                <div class="col25 c b-top">${Param.NumQ.AwayOT}</div>
+            </td>
+            <td>
+                <div class="col50 c b-top htsc">${Param.Score.AwayHT}</div>
+            </td>
+            <td>
+                <div class="col50 c b-top red">${Param.Score.AwayTS}</div>
+            </td>
+        </tr>
+    </script>
+    <script id="tpl-hockey" type="text/html">
+        <div class="content-warper" style="margin-top: 6px; width: 1172px;">
+            <div class="content-header clearfix" >
+                <div class="header-scroll" style="width:1172px">
+                    <table class="tbl-header-scroll" style="">
+                        <tbody>
+                            <tr valign="middle" style="height: 25px">
+                                <td colspan="9" class="nb-right">
+                                    <div style="float:left" class="col100 upper collapse" rel="${ID}"><span>${Name}</span></div>
+                                    <div style="float:left" class="col-event c collapse" rel="${ID}">
+                                        EVENT ${EventDate}
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="header_${ID}" align="center">
+                                <td class="bgheader" style="">
+                                    <div class="col100">MATCH-CODE</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col120">KICK-OFF TIME</div>
+                                </td>
+                                <td class="bgheader">
+                                    <div class="event-652 teamname ">EVENT</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col25">1P</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col25">2P</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col25">3P</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col25">O.T</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col50">FINAL<br/>SCORE</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col100">EVENT <br/>STATUS</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="l_sport_${ID}" class="content-body clearfix nb-bottom">
+                <div class="body-scroll scroll-height" style="overflow:hidden;">
+                    <table class="tbl-body-scroll" style="">
+                        <tbody>
+                            {{each Leagues}}
+                            <tr class="l">
+                                <td colspan="9" class="bg-league">
+                                    <div class="b leaguename" rel="${$value.League}"><span>${$value.LeagueName}</span></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="9" style="padding:0px 0px; border: none;">
+                                    <div id="m_league_${$value.League}"><table class="tbl-body-scroll"><tbody>
+                                        {{if $value.Matches.length}}
+                                        {{each $value.Matches}}
+                                        <tr class="l">
+                                            <td rowspan="2">
+                                                <div class="col100 c">${$value.Code}</div>
+                                            </td>
+                                            <td rowspan="2">
+                                                <div class="col120">${$value.KickOffTime}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="event-652 b teamname ht">${$value.HTeam}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="col25 c">${$value.Param.NumQ.Home1Q}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="col25 c">${$value.Param.NumQ.Home2Q}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="col25 c">${$value.Param.NumQ.Home3Q}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="col25 c htsc">${$value.Param.NumQ.HomeOT}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="col50 c red">${$value.Param.Score.HomeFT}</div>
+                                            </td>
+                                            <td rowspan="2">
+                                                <div class="col100 c uc-first">${$value.Status}</div>
+                                            </td>
+                                        </tr>
+                                        <tr class="c">
+                                            <td>
+                                                <div class="event-652 b teamname at b-top">${$value.ATeam}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col25 c b-top">${$value.Param.NumQ.Away1Q}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col25 c b-top">${$value.Param.NumQ.Away2Q}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col25 c b-top">${$value.Param.NumQ.Away3Q}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col25 c b-top htsc">${$value.Param.NumQ.AwayOT}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col50 c b-top red">${$value.Param.Score.AwayFT}</div>
+                                            </td>
+                                        </tr>
+                                        {{/each}}
+                                        {{else}}
+                                        <tr class="c">
+                                            <td colspan="9"><div class="noinfo">There is no information.</div></td>
+                                        </tr>
+                                        {{/if}}
+                                    </tbody></table></div>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script id="tpl-tennis" type="text/html">
+        <div class="content-warper" style="margin-top: 6px; width: 1172px;">
+            <div class="content-header clearfix" >
+                <div class="header-scroll" style="width:1172px">
+                    <table class="tbl-header-scroll" style="">
+                        <tbody>
+                            <tr valign="middle" style="height: 25px">
+                                <td colspan="11" class="nb-right">
+                                    <div style="float:left" class="col100 upper collapse" rel="${ID}"><span>${Name}</span></div>
+                                    <div style="float:left" class="col-event c collapse" rel="${ID}">
+                                        EVENT ${EventDate}
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="header_${ID}" align="center">
+                                <td class="bgheader" style="">
+                                    <div class="col100">MATCH-CODE</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col120">KICK-OFF TIME</div>
+                                </td>
+                                <td class="bgheader">
+                                    <div class="event-571 teamname ">EVENT</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col25">1S</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col25">2S</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col25">3S</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col25">4S</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col25">5S</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col50">TOTAL<br/>GAME</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col50">TOTAL<br/>SET</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col100">EVENT <br/>STATUS</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="l_sport_${ID}" class="content-body clearfix nb-bottom">
+                <div class="body-scroll scroll-height" style="overflow:hidden;">
+                    <table class="tbl-body-scroll" style="">
+                        <tbody>
+                            {{each Leagues}}
+                            <tr class="l">
+                                <td colspan="11" class="bg-league">
+                                    <div class="b leaguename" rel="${$value.League}"><span>${$value.LeagueName}</span></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="11" style="padding:0px 0px; border: none;">
+                                    <div id="m_league_${$value.League}"><table class="tbl-body-scroll"><tbody>
+                                        {{if $value.Matches.length}}
+                                        {{each $value.Matches}}
+                                        <tr class="l">
+                                            <td rowspan="2">
+                                                <div class="col100 c">${$value.Code}</div>
+                                            </td>
+                                            <td rowspan="2">
+                                                <div class="col120">${$value.KickOffTime}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="event-571 b teamname ht">${$value.HTeam}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="col25 c">${$value.Param.NumQ.Home1Q}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="col25 c">${$value.Param.NumQ.Home2Q}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="col25 c">${$value.Param.NumQ.Home3Q}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="col25 c">${$value.Param.NumQ.Home4Q}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="col25 c">${$value.Param.NumQ.Home5Q}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="col50 c htsc">${$value.Param.Goal.HomeTG}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="col50 c red">${$value.Param.Score.HomeTS}</div>
+                                            </td>
+                                            <td rowspan="2">
+                                                <div class="col100 c uc-first">${$value.Status}</div>
+                                            </td>
+                                        </tr>
+                                        <tr class="c">
+                                            <td>
+                                                <div class="event-571 b teamname at b-top">${$value.ATeam}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col25 c b-top">${$value.Param.NumQ.Away1Q}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col25 c b-top">${$value.Param.NumQ.Away2Q}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col25 c b-top">${$value.Param.NumQ.Away3Q}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col25 c b-top">${$value.Param.NumQ.Away4Q}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col25 c b-top">${$value.Param.NumQ.Away5Q}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col50 c b-top htsc">${$value.Param.Goal.AwayTG}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col50 c b-top red">${$value.Param.Score.AwayTS}</div>
+                                            </td>
+                                        </tr>
+                                        {{/each}}
+                                        {{else}}
+                                        <tr class="c">
+                                            <td colspan="11"><div class="noinfo">There is no information.</div></td>
+                                        </tr>
+                                        {{/if}}
+                                    </tbody></table></div>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script id="tpl-billiard" type="text/html">
+        <div class="content-warper" style="margin-top: 6px; width: 1172px;">
+            <div class="content-header clearfix" >
+                <div class="header-scroll" style="width:1172px">
+                    <table class="tbl-header-scroll" style="">
+                        <tbody>
+                            <tr valign="middle" style="height: 25px">
+                                <td colspan="5" class="nb-right">
+                                    <div style="float:left" class="col100 upper collapse" rel="${ID}"><span>${Name}</span></div>
+                                    <div style="float:left" class="col-event c collapse" rel="${ID}">
+                                        EVENT ${EventDate}
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="header_${ID}" align="center">
+                                <td class="bgheader" style="">
+                                    <div class="col100">MATCH-CODE</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col120">KICK-OFF TIME</div>
+                                </td>
+                                <td class="bgheader">
+                                    <div class="event-764 teamname ">EVENT</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col50">FINAL<br/>SCORE</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col100">EVENT <br/>STATUS</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="l_sport_${ID}" class="content-body clearfix nb-bottom">
+                <div class="body-scroll scroll-height" style="overflow:hidden;">
+                    <table class="tbl-body-scroll" style="">
+                        <tbody>
+                            {{each Leagues}}
+                            <tr class="l">
+                                <td colspan="5" class="bg-league">
+                                    <div class="b leaguename" rel="${$value.League}"><span>${$value.LeagueName}</span></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" style="padding:0px 0px; border: none;">
+                                    <div id="m_league_${$value.League}"><table class="tbl-body-scroll"><tbody>
+                                        {{if $value.Matches.length}}
+                                        {{each $value.Matches}}
+                                        <tr class="l">
+                                            <td rowspan="2">
+                                                <div class="col100 c">${$value.Code}</div>
+                                            </td>
+                                            <td rowspan="2">
+                                                <div class="col120">${$value.KickOffTime}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="event-764 b teamname ht">${$value.HTeam}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="col50 c htsc">${$value.Param.Score.HomeFT}</div>
+                                            </td>
+                                            <td rowspan="2">
+                                                <div class="col100 c uc-first">${$value.Status}</div>
+                                            </td>
+                                        </tr>
+                                        <tr class="c">
+                                            <td>
+                                                <div class="event-764 b teamname at b-top">${$value.ATeam}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col50 c b-top red">${$value.Param.Score.AwayFT}</div>
+                                            </td>
+                                        </tr>
+                                        {{/each}}
+                                        {{else}}
+                                        <tr class="c">
+                                            <td colspan="5"><div class="noinfo">There is no information.</div></td>
+                                        </tr>
+                                        {{/if}}
+                                    </tbody></table></div>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script id="tpl-baseball" type="text/html">
+        <div class="content-warper" style="margin-top: 6px; width: 1172px;">
+            <div class="content-header clearfix" >
+                <div class="header-scroll" style="width:1172px">
+                    <table class="tbl-header-scroll" style="">
+                        <tbody>
+                            <tr valign="middle" style="height: 25px">
+                                <td colspan="16" class="nb-right">
+                                    <div style="float:left" class="col100 upper collapse" rel="${ID}"><span>${Name}</span></div>
+                                    <div style="float:left" class="col-event c collapse" rel="${ID}">
+                                        EVENT ${EventDate}
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="header_${ID}" align="center">
+                                <td class="bgheader" style="">
+                                    <div class="col100">MATCH-CODE</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col120">KICK-OFF TIME</div>
+                                </td>
+                                <td class="bgheader">
+                                    <div class="event-431 teamname c">EVENT</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col25">1</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col25">2</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col25">3</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col25">4</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col25">5</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col25">6</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col25">7</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col25">8</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col25">9</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col25">E.I</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col50">HT<br/>SCORE</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col50">FINAL<br/>SCORE</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col100">EVENT <br/>STATUS</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="l_sport_${ID}" class="content-body clearfix nb-bottom">
+                <div class="body-scroll scroll-height" style="overflow:hidden;">
+                    <table class="tbl-body-scroll" style="">
+                        <tbody>
+                            {{each Leagues}}
+                            <tr class="l">
+                                <td colspan="16" class="bg-league">
+                                    <div class="b leaguename" rel="${$value.League}"><span>${$value.LeagueName}</span></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="16" style="padding:0px 0px; border: none;">
+                                    <div id="m_league_${$value.League}"><table class="tbl-body-scroll"><tbody>
+                                        {{if $value.Matches.length}}
+                                        {{each $value.Matches}}
+                                        <tr class="l">
+                                            <td rowspan="2">
+                                                <div class="col100 c">${$value.Code}</div>
+                                            </td>
+                                            <td rowspan="2">
+                                                <div class="col120">${$value.KickOffTime}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="event-431 b teamname ht">${$value.HTeam}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="col25 c">${$value.Param.NumQ.Home1Q}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="col25 c">${$value.Param.NumQ.Home2Q}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="col25 c">${$value.Param.NumQ.Home3Q}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="col25 c">${$value.Param.NumQ.Home4Q}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="col25 c">${$value.Param.NumQ.Home5Q}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="col25 c">${$value.Param.NumQ.Home6Q}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="col25 c">${$value.Param.NumQ.Home7Q}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="col25 c">${$value.Param.NumQ.Home8Q}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="col25 c">${$value.Param.NumQ.Home9Q}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="col25 c htsc">${$value.Param.NumQ.HomeEI}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="col50 c htsc">${$value.Param.Score.HomeHT}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="col50 c red">${$value.Param.Score.HomeFT}</div>
+                                            </td>
+                                            <td rowspan="2">
+                                                <div class="col100 c uc-first">${$value.Status}</div>
+                                            </td>
+                                        </tr>
+                                        <tr class="c">
+                                            <td>
+                                                <div class="event-431 b teamname at b-top">${$value.ATeam}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col25 c b-top">${$value.Param.NumQ.Away1Q}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col25 c b-top">${$value.Param.NumQ.Away2Q}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col25 c b-top">${$value.Param.NumQ.Away3Q}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col25 c b-top">${$value.Param.NumQ.Away4Q}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col25 c b-top">${$value.Param.NumQ.Away5Q}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col25 c b-top">${$value.Param.NumQ.Away6Q}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col25 c b-top">${$value.Param.NumQ.Away7Q}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col25 c b-top">${$value.Param.NumQ.Away8Q}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col25 c b-top">${$value.Param.NumQ.Away9Q}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col25 c b-top htsc">${$value.Param.NumQ.AwayEI}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col50 c b-top htsc">${$value.Param.Score.AwayHT}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col50 c b-top red">${$value.Param.Score.AwayFT}</div>
+                                            </td>
+                                        </tr>
+                                        {{/each}}
+                                        {{else}}
+                                        <tr class="c">
+                                            <td colspan="16"><div class="noinfo">There is no information.</div></td>
+                                        </tr>
+                                        {{/if}}
+                                    </tbody></table></div>
+                                </td>
+                            </tr>
+                            {{/each}}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script id="tpl-badminton" type="text/html">
+        <div class="content-warper" style="margin-top: 6px; width: 1172px;">
+            <div class="content-header clearfix" >
+                <div class="header-scroll" style="width:1172px">
+                    <table class="tbl-header-scroll" style="">
+                        <tbody>
+                            <tr valign="middle" style="height: 25px">
+                                <td colspan="11" class="nb-right">
+                                    <div style="float:left" class="col100 upper collapse" rel="${ID}"><span>${Name}</span></div>
+                                    <div style="float:left" class="col-event c collapse" rel="${ID}">
+                                        EVENT ${EventDate}
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="header_${ID}" align="center">
+                                <td class="bgheader" style="">
+                                    <div class="col100">MATCH-CODE</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col120">KICK-OFF TIME</div>
+                                </td>
+                                <td class="bgheader">
+                                    <div class="event-571 teamname c">EVENT</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col25">1S</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col25">2S</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col25">3S</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col25">4S</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col25">5S</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col50">TOTAL<br/>POINTS</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col50">TOTAL<br/>SET</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col100">EVENT <br/>STATUS</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="l_sport_${ID}" class="content-body clearfix nb-bottom">
+                <div class="body-scroll scroll-height" style="overflow:hidden;">
+                    <table class="tbl-body-scroll" style="">
+                        <tbody>
+                            {{each Leagues}}
+                            <tr class="l">
+                                <td colspan="11" class="bg-league">
+                                    <div class="b leaguename" rel="${$value.League}"><span>${$value.LeagueName}</span></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="11" style="padding:0px 0px; border: none;">
+                                    <div id="m_league_${$value.League}"><table class="tbl-body-scroll"><tbody>
+                                        {{if $value.Matches.length}}
+                                        {{each $value.Matches}}
+                                        <tr class="l">
+                                            <td rowspan="2">
+                                                <div class="col100 c">${$value.Code}</div>
+                                            </td>
+                                            <td rowspan="2">
+                                                <div class="col120">${$value.KickOffTime}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="event-571 b teamname ht">${$value.HTeam}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="col25 c">${$value.Param.NumQ.Home1Q}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="col25 c">${$value.Param.NumQ.Home2Q}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="col25 c">${$value.Param.NumQ.Home3Q}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="col25 c">${$value.Param.NumQ.Home4Q}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="col25 c">${$value.Param.NumQ.Home5Q}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="col50 c">${$value.Param.Goal.HomeTG}</div>
+                                            </td>
+                                            <td class="nb-bottom">
+                                                <div class="col50 c">${$value.Param.Score.HomeTS}</div>
+                                            </td>
+                                            <td rowspan="2">
+                                                <div class="col100 c uc-first">${$value.Status}</div>
+                                            </td>
+                                        </tr>
+                                        <tr class="c">
+                                            <td>
+                                                <div class="event-571 b teamname at b-top">${$value.ATeam}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col25 c b-top">${$value.Param.NumQ.Away1Q}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col25 c b-top">${$value.Param.NumQ.Away2Q}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col25 c b-top">${$value.Param.NumQ.Away3Q}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col25 c b-top">${$value.Param.NumQ.Away4Q}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col25 c b-top">${$value.Param.NumQ.Away5Q}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col50 c b-top">${$value.Param.Goal.AwayTG}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col50 c b-top">${$value.Param.Score.AwayTS}</div>
+                                            </td>
+                                        </tr>
+                                        {{/each}}
+                                        {{else}}
+                                        <tr class="c">
+                                            <td colspan="11"><div class="noinfo">There is no information.</div></td>
+                                        </tr>
+                                        {{/if}}
+                                    </tbody></table></div>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script id="tpl-darts" type="text/html">
+        <div class="content-warper" style="margin-top: 6px; width: 1172px;">
+            <div class="content-header clearfix" >
+                <div class="header-scroll" style="width:1172px">
+                    <table class="tbl-header-scroll" style="">
+                        <tbody>
+                            <tr valign="middle" style="height: 25px">
+                                <td colspan="5" class="nb-right">
+                                    <div style="float:left" class="col100 upper collapse" rel="${ID}"><span>${Name}</span></div>
+                                    <div style="float:left" class="col-event c collapse" rel="${ID}">
+                                        EVENT ${EventDate}
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="header_${ID}" align="center">
+                                <td class="bgheader" style="">
+                                    <div class="col100">MATCH-CODE</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col120">KICK-OFF TIME</div>
+                                </td>
+                                <td class="bgheader">
+                                    <div class="event-764 teamname ">EVENT</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col50">FINAL<br/>SCORE</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col100">EVENT <br/>STATUS</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="l_sport_${ID}" class="content-body clearfix nb-bottom">
+                <div class="body-scroll scroll-height" style="overflow:hidden;">
+                    <table class="tbl-body-scroll" style="">
+                        <tbody>
+                            {{tmpl(Leagues) "#tpl-darts-league"}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script id="tpl-darts-league" type="text/html">
+        <tr class="l">
+            <td colspan="5" class="bg-league">
+                <div class="b leaguename" rel="${League}"><span id="league_${League}" rel="${Sport}">${LeagueName}</span></div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5" style="padding:0px 0px; border: none;">
+                <div id="m_league_${League}"><table class="tbl-body-scroll"><tbody>
+                    {{if Matches.length}}
+                    {{tmpl(Matches) "#tpl-darts-row"}}
+                    {{else}}
+                    <tr class="c">
+                        <td colspan="5"><div class="noinfo">There is no information.</div></td>
+                    </tr>
+                    {{/if}}
+                </tbody></table></div>
+            </td>
+        </tr>
+    </script>
+    <script id="tpl-darts-row" type="text/html">
+        <tr class="league_${League} l">
+            <td rowspan="2">
+                <div class="col100 c">${Code}</div>
+            </td>
+            <td rowspan="2">
+                <div class="col120">${KickOffTime}</div>
+            </td>
+            <td class="nb-bottom">
+                <div class="event-764 b teamname ht">${HTeam}</div>
+            </td>
+            <td class="nb-bottom">
+                <div class="col50 c red">${Param.Score.HomeFT}</div>
+            </td>
+            <td rowspan="2">
+                <div class="col100 c uc-first">${Status}</div>
+            </td>
+        </tr>
+        <tr class="league_${League} c">
+            <td>
+                <div class="event-764 b teamname at b-top">${ATeam}</div>
+            </td>
+            <td>
+                <div class="col50 c b-top red">${Param.Score.AwayFT}</div>
+            </td>
+        </tr>
+    </script>
+    <script id="tpl-common" type="text/html">
+        <div class="content-warper" style="margin-top: 6px; width: 1172px;">
+            <div class="content-header clearfix" >
+                <div class="header-scroll" style="width:1172px">
+                    <table class="tbl-header-scroll" style="">
+                        <tbody>
+                            <tr valign="middle" style="height: 25px">
+                                <td colspan="6" class="nb-right">
+                                    <div style="float:left" class="col100 upper collapse" rel="${ID}"><span>${Name}</span></div>
+                                    <div style="float:left" class="col-event c collapse" rel="${ID}">
+                                        EVENT ${EventDate}
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="header_${ID}" align="center">
+                                <td class="bgheader" style="">
+                                    <div class="col100">MATCH-CODE</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col120">KICK-OFF TIME</div>
+                                </td>
+                                <td class="bgheader">
+                                    <div class="event-711 teamname ">EVENT</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col50">HT<br/>SCORE</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col50">FINAL<br/>SCORE</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col100">EVENT <br/>STATUS</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="l_sport_${ID}" class="content-body clearfix nb-bottom">
+                <div class="body-scroll scroll-height" style="overflow:hidden;">
+                    <table class="tbl-body-scroll" style="">
+                        <tbody>
+                            {{tmpl(Leagues) "#tpl-common-league"}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script id="tpl-common-league" type="text/html">
+        <tr class="l">
+                <td colspan="6" class="bg-league">
+                    <div class="b leaguename" rel="${League}"><span id="league_${League}" rel="${Sport}">${LeagueName}</span></div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6" style="padding:0px 0px; border: none;">
+                    <div id="m_league_${League}"><table class="tbl-body-scroll"><tbody>
+                        {{if Matches.length}}
+                        {{tmpl(Matches) "#tpl-common-row"}}
+                        {{else}}
+                        <tr class="c">
+                            <td colspan="6"><div class="noinfo">There is no information.</div></td>
+                        </tr>
+                        {{/if}}
+                    </tbody></table></div>
+                </td>
+            </tr>
+    </script>
+    <script id="tpl-common-row" type="text/html">
+        <tr class="league_${League} l">
+            <td rowspan="2">
+                <div class="col100 c">${Code}</div>
+            </td>
+            <td rowspan="2">
+                <div class="col120">${KickOffTime}</div>
+            </td>
+            <td class="nb-bottom">
+                <div class="event-711 b teamname ht">${HTeam}</div>
+            </td>
+            <td class="nb-bottom">
+                <div class="col50 c htsc">${Param.Score.HomeHT}</div>
+            </td>
+            <td class="nb-bottom">
+                <div class="col50 c red">${Param.Score.HomeFT}</div>
+            </td>
+            <td rowspan="2">
+                <div class="col100 c uc-first">${Status}</div>
+            </td>
+        </tr>
+        <tr class="league_${League} c">
+            <td>
+                <div class="event-711 b teamname at b-top">${ATeam}</div>
+            </td>
+            <td>
+                <div class="col50 c b-top htsc">${Param.Score.AwayHT}</div>
+            </td>
+            <td>
+                <div class="col50 c b-top red">${Param.Score.AwayFT}</div>
+            </td>
+        </tr>
+    </script>
+    <script id="tpl-horseracing" type="text/html">
+        <div class="content-warper" style="margin-top: 6px; width: 1172px;">
+            <div class="content-header clearfix" >
+                <div class="header-scroll" style="width:1172px">
+                    <table class="tbl-header-scroll" style="">
+                        <tbody>
+                            <tr valign="middle" style="height: 25px">
+                                <td colspan="5" class="nb-right">
+                                    <div style="float:left" class="col110 upper collapse" rel="${ID}"><span>${Name}</span></div>
+                                    <div style="float:left" class="col-event c collapse" rel="${ID}">
+                                        EVENT ${EventDate}
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="header_${ID}" align="center">
+                                <td class="bgheader">
+                                    <div class="event-574 teamname c">RACE</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col200">RESULT</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col120">WIN</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col120">PLACE</div>
+                                </td>
+                                <td class="bgheader" style="">
+                                    <div class="col120">STATUS</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="l_sport_${ID}" class="content-body clearfix nb-bottom">
+                <div class="body-scroll scroll-height" style="overflow:hidden;">
+                    <table class="tbl-body-scroll" style="">
+                        <tbody>
+                            {{each Leagues}}
+                            <tr class="l">
+                                <td colspan="5" class="bg-league">
+                                    <div class="b leaguename" rel="${$value.League}"><span>${$value.LeagueName}</span></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" style="padding:0px 0px; border: none;">
+                                    <div id="m_league_${$value.League}"><table class="tbl-body-scroll"><tbody>
+                                        {{if $value.Horses.length}}
+                                        {{each $value.Horses}}
+                                        <tr class="l">
+                                            <td rowspan="2">
+                                                <div class="event-574 teamname c">${$value.RaceNo}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col200">${$value.HorseName}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col120">${$value.Winodds}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col120">${$value.Placeodds}</div>
+                                            </td>
+                                            <td rowspan="2">
+                                                <div class="col120">${$value.Status}</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="col200">${$value.HorseName}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col120">${$value.Winodds}</div>
+                                            </td>
+                                            <td>
+                                                <div class="col120">${$value.Placeodds}</div>
+                                            </td>
+                                        </tr>
+                                        {{/each}}
+                                        {{else}}
+                                        <tr class="c">
+                                            <td colspan="5"><div class="noinfo">There is no information.</div></td>
+                                        </tr>
+                                        {{/if}}
+                                    </div>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script id="tpl-goal-history" type="text/html">
+        <div style="float: left; overflow-x:hidden;overflow-y:auto; width: 353px; height:155px;margin-top:5px;line-height:17px;border:1px solid #BABABA;">
+            <table class="tbl-body-scroll" style="width: 100%;padding:1px;">
+                <tbody>
+                <tr align="center" style="background-color:#3B5998;color:#FFF"><td colspan="2" class="nb-right"><span class="b upper">${sport}</span></td></tr>
+                <tr align="center" style="background-color:#EDECEB;font-weight:bold"><td colspan="2" class="nb-right"><span>${league}</span></td></tr>
+                <tr align="center"><td colspan="2" class="nb-right"><span class="ht">${home}</span> -vs- <span class="at">${away}</span></td></tr>
+                {{each records}}
+                    <tr align="center"><td class="col180">${hs} - ${as}</td><td class="col180 nb-right"><span class="b">${tn}</span></td></tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </script>
+    <div id="popup-history" class="hidden">
+    </div>
+    <script src="~/Scripts/Lib/jquery.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/JSINQ/jsinq.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/Jlinq/jlinq.jquery.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/jquery.imgpreload.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/json2.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/UI/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/utils/jquery.button.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/Popup/js/centreIt-1.1.5.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/Popup/js/jquery.popup.js" type="text/javascript"></script>
+    <script src="~/Scripts/Common.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/gridscroller.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/jquery.tmpl.min.js" type="text/javascript"></script>
+    <script src="~/Views/Report/Scripts/EMAndFT.js?ver=@WebSettings.Version" type="text/javascript"></script>
+    <script type="text/javascript">
+        var toDate = "@DateTime.Now.ToShortDateString()";
+        $(document).ready(function () {
+            EMAndFT.initPage();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+#pagination a{text-decoration:none;border:solid 1px #7C98A4;color:#000}
+#pagination a:hover{background:#ECE999;color:#000;border:solid 1px #7C98A4}
+#pagination a,#pagination span{display:block;float:left;margin-right:4px;line-height:14px;padding:0 4px}
+#pagination .current{float:left;background:#ECE999;color:#000;border:solid 1px #7C98A4;font-weight:700;padding:0 4px}
+#pagination a.prev{width:16px;height:16px;background:url(icon_page.gif) no-repeat -16px 0;border:none 0;padding:0}
+#pagination a.prev:hover{background-position:-16px -16px}
+#pagination a.next{width:16px;height:16px;background:url(icon_page.gif) no-repeat -32px 0;border:none 0;padding:0}
+#pagination a.next:hover{background-position:-32px -16px}
+#pagination .current.prev{width:16px;height:16px;background:url(icon_page.gif) no-repeat -16px -32px;border:none 0;padding:0}
+#pagination .current.next{width:16px;height:16px;background:url(icon_page.gif) no-repeat -32px -32px;border:none 0;padding:0}
+#itemperpage{float:left;padding:0}
+#pagination span.itemperpage{padding:0}
+#pagination span.btnseparator{border-left:1px solid #ccc;border-right:1px solid #fff;float:left;height:16px;margin:0 8px;padding:0!important}
+#pagination span.detailtext{float:right;margin:0;padding:0}
+
+
+#pagination .gotopage_box{border: solid 1px #7c98a4;padding:2px 2px; position:absolute; display:none; background:#fff; z-index:999; }
+#pagination .txt{width:40px !important;}
+#pagination .pagenav_ibtn {height:15px;margin-left:2px;}
+
+#pagination .canchange {cursor:pointer}

@@ -1,0 +1,769 @@
+﻿@using Fanex.ABS.Infrastructure.Configurations;
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Summary</title>
+    <link href="~/Content/Ocean/StyleSheet.css" rel="stylesheet" type="text/css" />
+    <link href="~/Scripts/Lib/Pager/pagination.css" rel="stylesheet" type="text/css" />
+    <link href="~/Scripts/Lib/UI/css/custom-theme/jquery-ui-1.8.10.custom.css" rel="stylesheet"
+        type="text/css" />
+    <link href="~/Scripts/Chart/jchart.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Ocean/Grid.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Ocean/StyleSheet.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <form id="form1" runat="server">
+    <input id="hiddenServerDate" type="hidden" value="@DateTime.Now.ToShortDateString()" />
+    </form>
+    <div id="headerSection">
+        <a href="javascript:void(0)" id="btnToggle" class="toggler" title="Expand/Collapse">
+            &nbsp;</a>
+        <div class="pageTitle">
+            Summary Report</div>
+        <div id="divFilter" class="filterSection">
+            <table border="0">
+                <tbody>
+                    <tr>
+                        <td class="r w40">
+                            <label>
+                                Date:</label>
+                        </td>
+                        <td class="b l">
+                            <select id="ddlDuration" class="inputtext" style="width: 120px" onchange="javascript:summary.GetDateTime(this.value)">
+                                <option value="1" selected="selected">Today</option>
+                                <option value="2">Yesterday</option>
+                                <option value="3">Current Week</option>
+                                <option value="4">Last Week</option>
+                                <option value="5">Current Month</option>
+                                <option value="6">Last Month</option>
+                                <option value="7">Since Last Month</option>
+                                <option value="8">Specific Date</option>
+                            </select>
+                        </td>
+                        <td class="r w40">
+                            <label>
+                                From:</label>
+                        </td>
+                        <td class="l">
+                            <input id="tbxFromDate" type="text" class="inputtext txtdate" readonly="readonly" />
+                        </td>
+                        <td class="r">
+                            <label>
+                                To:</label>
+                        </td>
+                        <td class="l">
+                            <input id="tbxToDate" type="text" class="inputtext txtdate" readonly="readonly" />
+                        </td>
+                        <td class="r" style="padding-left:10px;">
+                            <label>
+                                Bet type:</label>
+                        </td>
+                        <td class="l">
+                            <select id="selBettype" class="inputtext" style="width: 120px">
+                                <option value="0" selected="selected">All</option>
+                                <option value="7">1st Handicap</option>
+                                <option value="1">Handicap</option>
+                                <option value="8">1st Over/Under</option>
+                                <option value="3">Over/Under</option>
+                                <option value="15">1st 1X2</option>
+                                <option value="5">1X2</option>
+                            </select>
+                        </td>
+                        <td class="l">
+                            <input id="btnSearch" type="button" class="btn" value="Search" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="msg" style="width: 100%">
+            </div>
+        </div>
+    </div>
+    <div class="contentSection" id="contentSection" style="padding-top: 80px;">
+        <div id="divLeft" style="float: left; display: none" class="content-warper">
+            <div class="content-header clearfix">
+                <div class="header-scroll">
+                    <table class="tbl-header-scroll">
+                        <tbody>
+                            <tr>
+                                <td style="border-bottom: none 0px;">
+                                    <div class="col30 c">
+                                        <input id="cbxAllLeft" type="checkbox" class="inputtext" checked="checked" />
+                                    </div>
+                                </td>
+                                <td style="border-bottom: none 0px;">
+                                    <div class="col60 c">
+                                        <span style="text-decoration: underline; cursor: pointer" onclick="javascript:summary.main.doFilter();">
+                                            [OK]</span> Acc
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="content-body clearfix">
+                <div class="body-scroll">
+                    <table class="tbl-body-scroll">
+                        <tbody id="tbodyLeft">
+                        </tbody>
+                    </table>
+                    <script id="stLeft" type="text/html">
+                        <tr
+                            {{if index % 2 != 0}}
+                                class="evenrow2"
+                            {{/if}}
+                        ><td>
+                                <div class="col30 c">
+                                    <input type="checkbox" class="inputtext" checked="checked" onchange="javascript:summary.main.leftFilter(event);" />
+                                    <input type="hidden" value="${CustID}" />
+                                </div>
+                            </td><td>
+                                <div class="col60 c" style="color:${Color}">
+                                    ${Acc}
+                                </div>
+                            </td>
+                        </tr>
+                    </script>
+                    <script id="stLeftNoInfo" type="text/html">
+                        <tr><td style="border:0px none">
+                                <div style="width:90">&nbsp;</div>
+                            </td>
+                        </tr>
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div id="divRight" style="float: left; display: none; margin-left: 4px; border-right: 0px;
+            border-bottom: 0px;" class="content-warper">
+            <div class="content-toolbox bgtitle" style="border-right: 1px solid #bababa">
+                <div class="gridtitle">
+                    <div id="divPath" style="float: left; margin-left: 4px; display: none">
+                        <label>
+                            Acc ></label>
+                    </div>
+                </div>
+                <div class="btngroup">
+                    <input type="button" value=" " id="btnChart" class="btnCharting" onclick="summary.chart.viewByTotal()" />
+                    <input type="button" onclick="javascript:summary.main.exportExcel('main');" class="btnExcel"
+                        title="Export to Excel" /></div>
+            </div>
+            <div class="content-header clearfix">
+                <div class="header-scroll" style="overflow: hidden">
+                    <table class="tbl-header-scroll">
+                        <tbody>
+                            <tr>
+                                <td style="border-bottom: none 0px;">
+                                    <div class="col40 c">
+                                    </div>
+                                </td>
+                                <td style="border-bottom: none 0px;">
+                                    <div class="col60 c">
+                                        Acc</div>
+                                </td>
+                                <td style="border-bottom: none 0px;">
+                                    <div class="col60 c">
+                                        Betslip</div>
+                                </td>
+                                <td style="border-bottom: none 0px;">
+                                    <div class="col60 c">
+                                        Win</div>
+                                </td>
+                                <td style="border-bottom: none 0px;">
+                                    <div class="col60 c">
+                                        Draw</div>
+                                </td>
+                                <td style="border-bottom: none 0px;">
+                                    <div class="col60 c">
+                                        Lose</div>
+                                </td>
+                                <td style="border-bottom: none 0px;">
+                                    <div class="col100 c">
+                                        Win%</div>
+                                </td>
+                                <td style="border-bottom: none 0px;">
+                                    <div class="col100 c">
+                                        Total Stake</div>
+                                </td>
+                                <td style="border-bottom: none 0px;">
+                                    <div class="col100 c">
+                                        Total P&L</div>
+                                </td>
+                                <td style="border-bottom: none 0px;">
+                                    <div class="col100 c">
+                                        MP%</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="content-body clearfix">
+                <div class="body-scroll" style="overflow: hidden;">
+                    <table class="tbl-body-scroll">
+                        <tbody id="tbodyRight">
+                        </tbody>
+                    </table>
+                    <script id="stRight" type="text/html">
+                        <tr
+                            class="
+                            {{if index % 2 != 0}}
+                                evenrow2
+                            {{/if}}
+                            "
+                        ><td>
+                                <div class="col40 c">
+                                    ${index}
+                                </div>
+                            </td><td>
+                                <div class="col60 c"
+                                style="color:${Color}; cursor:pointer;
+                                {{if IsRunning == "1"}}
+                                     background-color:#FFF200;
+                                {{/if}}
+                                "
+                                onclick="javascript:summary.league.viewDetailAcc(${CustID}, '${Acc}');">
+                                    ${Acc}
+                                </div>
+                            </td><td>
+                                <div class="col60 c">
+                                    ${Betslip}
+                                </div>
+                            </td><td>
+                                <div class="col60 c">
+                                    ${Win}
+                                </div>
+                            </td><td>
+                                <div class="col60 c">
+                                    ${Draw}
+                                </div>
+                            </td><td>
+                                <div class="col60 c">
+                                    ${Lose}
+                                </div>
+                            </td><td>
+                                <div class="col100 r"
+                                {{if parseFloat(WinPercent) < 0}}
+                                    style="color:red"
+                                {{/if}}
+                                >
+                                    ${WinPercentStr}
+                                </div>
+                            </td><td>
+                                <div class="col100 r">
+                                    ${TotalStakeStr}
+                                </div>
+                            </td><td>
+                                <div class="col100 r"
+                                {{if parseFloat(TotalPL) < 0}}
+                                    style="color:red"
+                                {{/if}}
+                                >
+                                    ${TotalPLStr}
+                                </div>
+                            </td><td>
+                                <div class="col100 r"
+                                {{if parseFloat(MPPercent) < 0}}
+                                    style="color:red"
+                                {{/if}}
+                                >
+                                    ${MPPercentStr}
+                                </div>
+                            </td>
+                        </tr>
+                    </script>
+                    <script id="stRightMainNoInfo" type="text/html">
+                        <tr><td style="border:0px none;width:750px">
+                                <div class="c">There is no information</div>
+                            </td>
+                        </tr>
+                    </script>
+                </div>
+            </div>
+            <div class="clearfix" id="divFooterRightMain">
+                <div class="footer-scroll">
+                    <table class="tbl-footer-scroll">
+                        <tbody id="tbodyFooterRight">
+                            <tr>
+                                <td>
+                                    <div class="col40 c">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="col60 c">
+                                        <span style="text-decoration: underline; cursor: pointer" onclick="javascript:summary.leagueDetail.viewAllTicketsOfAccs();">
+                                            Total</span></div>
+                                </td>
+                                <td>
+                                    <div betslip="true" class="col60 c">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div win="true" class="col60 c">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div draw="true" class="col60 c">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div lose="true" class="col60 c">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div winpercent="true" class="col100 r">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div totalstake="true" class="col100 r">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div totalpl="true" class="col100 r">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div mppercent="true" class="col100 r">
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="divRightDetailAcc" style="float: left; display: none; margin-left: 4px;
+            border-right: 0px; border-bottom: 0px; width: 87%;" class="content-warper">
+            <div class="content-toolbox bgtitle" style="border-right: 1px solid #bababa">
+                <div class="gridtitle">
+                    <div id="divPathLeague" style="float: left; margin-left: 4px; display: none">
+                        <label>
+                            Acc ></label>
+                    </div>
+                </div>
+                <div class="btngroup">
+                    <input type="button" onclick="javascript:summary.main.exportExcel('league');" class="btnExcel"
+                        title="Export to Excel" /></div>
+            </div>
+            <div class="content-header clearfix">
+                <div @*class="header-scroll"*@>
+                    <table class="tbl-header-scroll" style="width: 100%">
+                        <tbody>
+                            <tr>
+                                <td style="border-bottom: none 0px; width: 5%;">
+                                    <div class=" c">
+                                    </div>
+                                </td>
+                                <td style="border-bottom: none 0px; cursor: pointer; width: 27%;" id="divLeagueHeader"
+                                    title="Sort By Leagues" onclick="summary.league.sortData(true);">
+                                    <div class=" c">
+                                        Leagues</div>
+                                </td>
+                                <td style="border-bottom: none 0px; width: 7%;">
+                                    <div class=" c">
+                                        Betslip</div>
+                                </td>
+                                <td style="border-bottom: none 0px; width: 7%;">
+                                    <div class=" c">
+                                        Win</div>
+                                </td>
+                                <td style="border-bottom: none 0px; width: 7%;">
+                                    <div class=" c">
+                                        Draw</div>
+                                </td>
+                                <td style="border-bottom: none 0px; width: 7%;">
+                                    <div class=" c">
+                                        Lose</div>
+                                </td>
+                                <td style="border-bottom: none 0px; width: 10%;">
+                                    <div class=" c">
+                                        Win%</div>
+                                </td>
+                                <td style="border-bottom: none 0px; width: 10%;">
+                                    <div class=" c">
+                                        Total Stake</div>
+                                </td>
+                                <td style="border-bottom: none 0px; width: 10%;">
+                                    <div class=" c">
+                                        Total P&L</div>
+                                </td>
+                                <td style="border-bottom: none 0px; width: 10%;">
+                                    <div class=" c">
+                                        MP%</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="content-body clearfix">
+                <div class="body-scroll" style="overflow: hidden">
+                    <table class="tbl-body-scroll" style="width: 100%">
+                        <tbody id="tbodyRightDetailAcc">
+                        </tbody>
+                    </table>
+                    <script id="stRightDetailAcc" type="text/html">
+                        <tr
+                         {{if index % 2 != 0}}
+                                class="evenrow2"
+                            {{/if}}
+                        ><td style="width:5%;">
+                                <div class=" c">
+                                    ${index}
+                                </div>
+                            </td><td style="width:27%;">
+                                <div class=" l blue"
+                                style="
+                                {{if IsRunning == "1"}}
+                                     background-color:#FFF200;
+                                {{/if}}
+                                "
+                                onclick="javascript:summary.leagueDetail.showDetail(${CustID}, ${LeagueId}, '${Acc}', '${LeagueName}');">
+                                    ${LeagueName}
+                                </div>
+                            </td><td style="width:7%;">
+                                <div class=" c">
+                                    ${Betslip}
+                                </div>
+                            </td><td style="width:7%;">
+                                <div class=" c">
+                                    ${Win}
+                                </div>
+                            </td><td style="width:7%;">
+                                <div class=" c">
+                                    ${Draw}
+                                </div>
+                            </td><td style="width:7%;">
+                                <div class=" c">
+                                    ${Lose}
+                                </div>
+                            </td><td style="width:10%;">
+                                <div class=" r"
+                                {{if parseFloat(WinPercent) < 0}}
+                                    style="color:red"
+                                {{/if}}
+                                >
+                                    ${WinPercentStr}
+                                </div>
+                            </td><td style="width:10%;">
+                                <div class=" r"
+                                {{if parseFloat(TotalStake) < 0}}
+                                    style="color:red"
+                                {{/if}}
+                                >
+                                    ${TotalStakeStr}
+                                </div>
+                            </td><td  style="width:10%;">
+                                <div class=" r"
+                                {{if parseFloat(TotalPL) < 0}}
+                                    style="color:red"
+                                {{/if}}
+                                >
+                                    ${TotalPLStr}
+                                </div>
+                            </td><td style="width:10%;">
+                                <div class=" r"
+                                {{if parseFloat(MPPercent) < 0}}
+                                    style="color:red"
+                                {{/if}}
+                                >
+                                    ${MPPercentStr}
+                                </div>
+                            </td>
+                        </tr>
+                    </script>
+                </div>
+            </div>
+            <div class="clearfix" id="divFooterRightDetailAcc">
+                <div @*class="footer-scroll"*@>
+                    <table class="tbl-footer-scroll" style="width: 100%">
+                        <tbody id="tbodyFooterRightDetailAcc">
+                            <tr>
+                                <td style="width: 5%;">
+                                    <div class=" c">
+                                    </div>
+                                </td>
+                                <td style="width: 27%;">
+                                    <div class=" c">
+                                        <span style="text-decoration: underline; cursor: pointer" onclick="javascript:summary.leagueDetail.viewAllTickets();">
+                                            Total</span></div>
+                                </td>
+                                <td style="width: 7%;">
+                                    <div betslip="true" class=" c">
+                                    </div>
+                                </td>
+                                <td style="width: 7%;">
+                                    <div win="true" class=" c">
+                                    </div>
+                                </td>
+                                <td style="width: 7%;">
+                                    <div draw="true" class=" c">
+                                    </div>
+                                </td>
+                                <td style="width: 7%;">
+                                    <div lose="true" class=" c">
+                                    </div>
+                                </td>
+                                <td style="width: 10%;">
+                                    <div winpercent="true" class=" r">
+                                    </div>
+                                </td>
+                                <td style="width: 10%;">
+                                    <div totalstake="true" class=" r">
+                                    </div>
+                                </td>
+                                <td style="width: 10%;">
+                                    <div totalpl="true" class=" r">
+                                    </div>
+                                </td>
+                                <td style="width: 10%;">
+                                    <div mppercent="true" class=" r">
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="divLeagueDetail" style="float: left; display: none; margin-left: 4px; border-right: 0px;
+            border-bottom: 0px;" class="content-warper">
+            <div class="content-toolbox bgtitle" style="border-right: 1px solid #bababa">
+                <div class="gridtitle">
+                    <div id="divPathLeagueDetail" style="float: left; margin-left: 4px; display: none">
+                        <label>
+                            Acc ></label>
+                    </div>
+                </div>
+                <div class="btngroup">
+                    <input type="button" class="btnExcel" onclick="javascript:summary.main.exportExcel('leaguedetail');"
+                        title="Export to Excel" /></div>
+            </div>
+            <div class="content-header clearfix">
+                <div class="header-scroll">
+                    <table class="tbl-header-scroll">
+                        <tbody>
+                            <tr>
+                                <td style="border-bottom: none 0px;">
+                                    <div class="col40 c">
+                                    </div>
+                                </td>
+                                <td style="border-bottom: none 0px;">
+                                    <div class="col60 c">
+                                        Match Date
+                                    </div>
+                                </td>
+                                <td style="border-bottom: none 0px;">
+                                    <div class="col60 c">
+                                        Acc
+                                    </div>
+                                </td>
+                                <td style="border-bottom: none 0px;">
+                                    <div class="col60 c">
+                                        BT
+                                    </div>
+                                </td>
+                                <td style="border-bottom: none 0px;">
+                                    <div class="col100 c">
+                                        League
+                                    </div>
+                                </td>
+                                <td style="border-bottom: none 0px;">
+                                    <div class="col90 c adjustWidthMD">
+                                        Match Detail
+                                    </div>
+                                </td>
+                                <td style="border-bottom: none 0px;">
+                                    <div class="col60 c">
+                                        Team Pick
+                                    </div>
+                                </td>
+                                <td style="border-bottom: none 0px;">
+                                    <div class="col60 c">
+                                        HDP/Goal
+                                    </div>
+                                </td>
+                                <td style="border-bottom: none 0px;">
+                                    <div class="col40 c">
+                                        Odds
+                                    </div>
+                                </td>
+                                <td style="border-bottom: none 0px;">
+                                    <div class="col65 c adjustWidthStakePL">
+                                        Stake
+                                    </div>
+                                </td>
+                                <td style="border-bottom: none 0px;">
+                                    <div class="col65 c adjustWidthStakePL">
+                                        Total P&L
+                                    </div>
+                                </td>
+                                <td style="border-bottom: none 0px;">
+                                    <div class="col60 c">
+                                        Remarks
+                                    </div>
+                                </td>
+                                <td style="border-bottom: none 0px;">
+                                    <div class="col40 c">
+                                        Score
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="content-body clearfix">
+                <div class="body-scroll" style="overflow: hidden">
+                    <table class="tbl-body-scroll">
+                        <tbody id="tbodyLeagueDetail">
+                        </tbody>
+                    </table>
+                    <script id="stLeagueDetail" type="text/html">
+                        <tr
+                            {{if index % 2 != 0}}
+                                class="evenrow2"
+                            {{/if}}
+                        ><td>
+                                <div class="col40 c">
+                                    ${index}
+                                </div>
+                            </td><td>
+                                <div class="col60 c">
+                                    ${MatchDate}
+                                </div>
+                            </td><td>
+                                <div class="col60 c">
+                                    ${Acc}
+                                </div>
+                            </td><td>
+                                <div class="col60 c">
+                                    {{if LiveIndicator == true}}
+                                        <span style="color:blue">Live </span>
+                                    {{/if}}
+                                    ${BT}
+                                </div>
+                            </td><td>
+                                <div class="col100 c">
+                                    ${LeagueName}
+                                </div>
+                            </td><td>
+                                <div class="col90 c adjustWidthMD">
+                                    ${MatchDetail}
+                                    {{if LiveIndicator == true}}
+                                        <span style="color:Green;font-weight:bold">${LiveHomeScore}</span><span> - </span><span style="color:Green;font-weight:bold">${LiveAwayScore}</span>
+                                    {{/if}}
+                                </div>
+                            </td><td>
+                                <div class="col60 c">
+                                    ${TeamPick}
+                                </div>
+                            </td><td>
+                                <div class="col60 c"
+                                {{if parseFloat(HDPGoal) < 0}}
+                                    style="color:red"
+                                {{/if}}
+                                >
+                                    ${HDPGoal}
+                                </div>
+                            </td><td>
+                                <div class="col40 c" style="color:red">
+                                    ${OddsStr}
+                                </div>
+                            </td><td>
+                                <div class="col65 r adjustWidthStakePL">
+                                    ${StakeStr}
+                                </div>
+                            </td><td>
+                                <div class="col65 r adjustWidthStakePL"
+                                {{if parseFloat(TotalPL) < 0}}
+                                    style="color:red"
+                                {{/if}}
+                                >
+                                {{if StatusId != 0 && StatusId != 1}}
+                                    ${TotalPLStr}
+                                {{/if}}
+                                </div>
+                            </td><td>
+                                <div class="col60 c">
+                                    ${Remarks}
+                                </div>
+                            </td><td>
+                                <div class="col40 c">
+                                    ${Score}
+                                </div>
+                            </td>
+                        </tr>
+                    </script>
+                </div>
+            </div>
+            <div class="clearfix" id="divFooterLeagueDetail">
+                <div class="footer-scroll">
+                    <table class="tbl-footer-scroll">
+                        <tbody id="tbodyFooterLeagueDetail">
+                            <tr>
+                                <td colspan="8" align="right">
+                                    <div class="col40 r" style="width: 594px" id="adjustWithFooterTotal">
+                                        <span style="margin-right: 4px">Total</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div stake="true" class="col65 r adjustWidthStakePL">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div totalpl="true" class="col65 r adjustWidthStakePL">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="col60 c">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="col40 c">
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="content-pagination bgtitle clearfix" style="border-top: 0px; border-right: 1px solid #bababa;
+                border-bottom: 1px solid #bababa;">
+                <div class="pagination-scroll">
+                    <table style="width: 100%" cellspacing="0" cellpadding="1">
+                        <tr>
+                            <td>
+                                <div id="pagination">
+                                    &nbsp;</div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/Lib/jquery.1.6.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/UI/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/Template/jquery.tmpl.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/Jlinq/jlinq.js" type="text/javascript"></script>
+    <script src="~/Scripts/Common.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/utils/jquery.button.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/gridscroller.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/date.format.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/json2.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/utils/jquery.setcaretposition.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/Number/jquery.formattyping.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/jquery.queue.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/Number/jquery.stringnumformat.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/jquery.overlayer.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/Pager/jpager.js" type="text/javascript"></script>
+    <script src="~/Scripts/Chart/highcharts.dev.js" type="text/javascript"></script>
+    <script src="~/Scripts/Chart/accchart.js?" type="text/javascript"></script>
+    <script src="~/Views/Report/Scripts/SummaryReport.js?ver=@WebSettings.Version" type="text/javascript"></script>
+    <iframe id="frameExportExcel"  style="display: none" src=""></iframe>
+</body>
+</html>

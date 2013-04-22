@@ -1,0 +1,131 @@
+﻿<Functions>
+  <Function Name="Login" >
+    <Setting Key="LoginAdmin" SpName="Acc_LoginAdmin" DbName="main" />
+    <Setting Key="CustomerSelBelonging" SpName="Age_CustomerSelBelonging" DbName="db053"  />
+    <Setting Key="UserUpdLogout" SpName="Acc_CheckOut" DbName="ON_USER"  />
+    <Setting Key="UserUpd" SpName="Acc_Recheckin" DbName="ON_USER"  />
+    <Setting Key="Checkin" SpName="Acc_Checkin" DbName="ON_USER"  />
+    <Setting Key="UserMenu" SpName="Acc_MenuSelByCustID" DbName="db03"  />
+  </Function>
+  <Function Name="AccountInfo">
+    <Setting Key="AdminSel" SpName="Acc_AccAdminSel" DbName="main"/>
+    <Setting Key="UpdPwdReset" SpName="Acc_CustomerUpdPwdReset" DbName="main"/>
+    <Setting Key="AdminUpdClosed" SpName="Acc_Con_AdminUpdClosed" DbName="main"/>
+    <Setting Key="AdminUpdPageAccess" SpName="Acc_AccAdminUpdPageAccess" DbName="main"/>
+    <Setting Key="AdminIns" SpName="Acc_AccAdminIns" DbName="main"/>
+    <Setting Key="AdminInsFromExisted" SpName="Acc_AccAdminInsFromExisted" DbName="main"/>
+    <Setting Key="AdminUpd" SpName="Acc_AccAdminUpd" DbName="main"/>
+    <Setting Key="AdminSelByID" SpName="Acc_AccAdminSelByID" DbName="main"/>
+    <Setting Key="GroupInfoSel" SpName="Acc_Con_GroupInfoSel" DbName="db03"/>
+    <Setting Key="FuncInfoSel" SpName="Acc_Con_FuncInfoSel" DbName="db03"/>
+    <Setting Key="AdminSelByListGroupNameUserName" SpName="Acc_Con_AdminSelByListGroupNameUserName" DbName="db03"/>
+    <Setting Key="FuncInfoSelParent" SpName="Acc_Con_FuncInfoSelParent" DbName="db03"/>
+    <Setting Key="FuncInfoIns" SpName="Acc_Con_FuncInfoIns" DbName="db03"/>
+    <Setting Key="FuncInfoUpd" SpName="Acc_Con_FuncInfoUpd" DbName="db03"/>
+    <Setting Key="FuncInfoDel" SpName="Acc_Con_FuncInfoDel" DbName="db03"/>
+    <Setting Key="AdminPolicySel" SpName="Acc_Con_Batch_AdminPolicySel" DbName="db03"/>
+    <Setting Key="GroupInfoIns" SpName="Acc_Con_GroupInfoIns" DbName="db03"/>
+    <Setting Key="GroupInfoUpd" SpName="Acc_Con_GroupInfoUpd" DbName="db03"/>
+    <Setting Key="GroupInfoDel" SpName="Acc_Con_GroupInfoDel" DbName="db03"/>
+    <Setting Key="AdminSelByGroupID" SpName="Acc_Con_AdminSelByGroupID" DbName="db03"/>
+    <Setting Key="GroupPolicySel" SpName="Acc_Con_GroupPolicySel" DbName="db03"/>
+    <Setting Key="AdminPolicySelByCustID" SpName="Acc_Con_AdminPolicySelByCustID" DbName="db03"/>
+    <Setting Key="FileNameSelByCustID" SpName="Acc_Con_FileNameSelByCustID" DbName="db03"/>
+    <Setting Key="Con_AdminIns" SpName="Acc_Con_AdminIns" DbName="main"/>
+    <Setting Key="Con_AdminUpd" SpName="Acc_Con_AdminUpd" DbName="main"/>
+    <Setting Key="Con_AdminInsFromExisted" SpName="Acc_Con_AdminInsFromExisted" DbName="db03"/>
+    <Setting Key="Con_AdminSelByCustID" SpName="Acc_Con_AdminSelByCustID" DbName="db03"/>
+    <Setting Key="Con_CheckPermission" SpName="Acc_Con_CheckPermission" DbName="db03"/>
+    <Setting Key="Con_CheckPermission_All" SpName="Acc_Con_CheckPermission_All" DbName="db03"/>
+    <Setting Key="OperatorIns" SpName="Acc_OperatorIns" DbName="main"/>
+    <Setting Key="OperatorUpd" SpName="Acc_OperatorUpd" DbName="main"/>
+    <Setting Key="OperatorDel" SpName="Acc_OperatorDel" DbName="main"/>
+    <Setting Key="CustGroupIns" SpName="Acc_CustGroupIns" DbName="db053"/>
+    <Setting Key="CustomerSelUserInfo" SpName="Acc_CustomerSelUserInfo" DbName="db053"/>
+  </Function>
+  <Function Name="Policy">
+    <Setting Key="AdminPolicy" SpName="Acc_Con_AdminPolicyUpd" DbName="db03"/>
+    <Setting Key="GroupPolicy" SpName="Acc_Con_GroupPolicyUpd" DbName="db03"/>
+  </Function>
+  <Function Name="InstantReport">
+    <Setting Key="LeagueSel" SpName="Acc_AB_RptInstantLeagueSel" DbName="db054"></Setting>
+    <Setting Key="MemberSel" SpName="Acc_AB_RptInstantMembersSel" DbName="archive"></Setting>
+    <Setting Key="PunterSel" SpName="Acc_AB_RptInstantPunterSel" DbName="db054"></Setting>
+    <Setting Key="BetSummary" SpName="Acc_AB_RptInstantBetsSummary" DbName="archive"></Setting>
+    <Setting Key="BetSummaryDetail" SpName="Acc_AB_RptInstantBetsSummaryDetails" DbName="archive"></Setting>
+    <Setting Key="InstantReport" SpName="Acc_AB_RptInstant" DbName="db054"></Setting>
+    <Setting Key="InstantUpdRemark" SpName="Acc_AB_RptInstantUpdRemark" DbName="db054"></Setting>
+    <Setting Key="InstantMatchOdds" SpName="Acc_AB_RptInstantMatchOdds" DbName="db054"></Setting>
+    <Setting Key="InstantUpdatedTrans" SpName="Acc_AB_RptInstantUpdated" DbName="db054"></Setting>
+    <Setting Key="MatchCheck" SpName="Acc_AB_RptInstantMatchCheck" DbName="db054"></Setting>  
+  </Function>
+  <Function Name="Summary">
+    <Setting Key="Acc_AB_RptSummary" SpName="Acc_AB_RptSummary" DbName="db054"></Setting>
+    <Setting Key="Acc_AB_RptSummary_DetailsByAccount" SpName="Acc_AB_RptSummary_DetailsByAccount" DbName="db054"></Setting>
+    <Setting Key="Acc_AB_RptSummary_DetailsByLeague" SpName="Acc_AB_RptSummary_DetailsByLeague" DbName="db054"></Setting>
+    <Setting Key="Acc_AB_RptSummary_DetailsByLeague_Old" SpName="Acc_AB_RptSummary_DetailsByLeague_Old" DbName="db06"></Setting>
+
+  </Function>
+  <Function Name="Others">
+    <Setting Key="SelBalanceUpDay" SpName="Age_SelBalanceUpDay" DbName="db053"></Setting>
+    <Setting Key="SetLeagueSel" SpName="Acc_AB_ResultLeagueSel" DbName="db054"></Setting>
+    <Setting Key="SettleSelectMatch" SpName="Acc_AB_ResultMatchSel" DbName="db054"></Setting>
+    <Setting Key="SelSports" SpName="Acc_SelSports" DbName="prod"/>       
+  </Function>
+  <Function Name="LogDisplay">
+    <Setting Key="GetLogSetting" SpName="Acc_UserLog_RunSPSel" DbName="log"/>
+    <Setting Key="GetLogSettingTotal" SpName="Acc_UserLog_RunSPSelTotalRecords" DbName="log"/>
+
+    <Setting Key="GetLogLogin" SpName="Acc_UserLog_LoginSel" DbName="log"/>
+    <Setting Key="GetLogLoginTotal" SpName="Acc_UserLog_LoginSelTotalRecords" DbName="log"/>
+
+    <Setting Key="GetLogCredit" SpName="Acc_UserLog_CreditSel" DbName="log"/>
+    <Setting Key="GetLogCreditTotal" SpName="Acc_UserLog_CreditSelTotalRecords" DbName="log"/>     
+  </Function>
+  <Function Name="Helper" >
+    <Setting Key="GetCountries" SpName="Acc_GetCountries" DbName="db053"  />
+    <Setting Key="InsertCountry" SpName="Acc_InsCountry" DbName="main"  />
+    <Setting Key="GetCurrenies" SpName="Acc_ExchangeSel" DbName="db053"  />
+    <Setting Key="SelHRAllowedCurrency" SpName="Acc_SelHRAllowedCurrency" DbName="db053"  />
+    <Setting Key="CheckAllowedShow" SpName="Acc_CheckAllowedShow" DbName="db053"  />
+    <Setting Key="SiteSel" SpName="Acc_SiteSel" DbName="db053"  />
+  </Function>
+  <Function Name="ExchangeRate">
+    <Setting Key="EchangeSelAcc" SpName="Acc_ExchangeSelAccount" DbName="db053"  />
+    <Setting Key="EchangeSelById" SpName="Acc_ExchangeSelByID" DbName="db053"  />
+    <Setting Key="EchangeIns" SpName="Acc_ExchangeIns" DbName="main"  />
+    <Setting Key="EchangeUpd" SpName="Acc_ExchangeUpd" DbName="main"  />
+    <Setting Key="ExchangeSel" SpName="Acc_ExchangeSel" DbName="main"  />
+    <Setting Key="ExchangeCurrencySel" SpName="Acc_ExchangeCurrencySel" DbName="db053"  />    
+  </Function>
+  <Function Name="Customer">
+    <Setting Key="CustomerSelUserSearch" SpName="Acc_AB_CustomerSearch" DbName="db054"></Setting>
+    <Setting Key="CustomerABSel" SpName="Acc_AB_CustomerSel" DbName="db054"></Setting>
+    <Setting Key="CustomerABIns" SpName="Acc_AB_CustomerIns" DbName="db054"></Setting>
+    <Setting Key="Acc_AB_CustomerDel" SpName="Acc_AB_CustomerDel" DbName="db054"></Setting>
+    <Setting Key="CustomerPunterSel" SpName="Acc_AB_PunterCodeSel" DbName="db054"></Setting>
+    <Setting Key="Acc_AB_PunterCodeUpd" SpName="Acc_AB_PunterCodeUpd" DbName="db054"></Setting>
+    <Setting Key="MemberSelByPunterCodeId" SpName="Acc_AB_CustomerSel" DbName="archive"></Setting>
+    <Setting Key="ABTransaction_Sync" SpName="Acc_AB_Transaction_Sync" DbName="db054"></Setting>
+    <Setting Key="Acc_AB_GetAdminByPunterCode" SpName="Acc_AB_GetAdminByPunterCode" DbName="archive"></Setting>
+    <Setting Key="Acc_PunterGroupIns" SpName="Acc_PunterGroupIns" DbName="archive"></Setting>
+    <Setting Key="Acc_AB_PunterGroupDel" SpName="Acc_AB_PunterGroupDel" DbName="archive"></Setting>
+    <Setting Key="Acc_AB_AdminByPunterCodeSel" SpName="Acc_AB_AdminByPunterCodeSel" DbName="db054"></Setting>
+    <Setting Key="Acc_AB_AdminByPunterCodeUpd" SpName="Acc_AB_AdminByPunterCodeUpd" DbName="db054"></Setting>
+  </Function>
+  <Function Name="PunterManagement">
+    <Setting Key="Acc_AB_PunterCodeIns" SpName="Acc_AB_PunterCodeIns" DbName="db054"></Setting>
+    <Setting Key="Acc_AB_PunterGroupUpd" SpName="Acc_AB_PunterGroupUpd" DbName="db054"></Setting>
+    <Setting Key="Acc_AB_PunterGroupSel" SpName="Acc_AB_PunterGroupSel" DbName="db054"></Setting>
+    <Setting Key="Acc_AB_PunterCodeAssign" SpName="Acc_AB_PunterCodeAssign" DbName="db054"></Setting>
+    <Setting Key="Acc_AB_PunterCodeAssignAll" SpName="Acc_AB_PunterCodeAssignAll" DbName="db054"></Setting>
+  </Function>
+  
+  <Function Name="Admin_ExternalSite">
+    <Setting Key="SelectGroupName" SpName="Acc_CustGroupSelGroup" DbName="db053"></Setting>
+    <Setting Key="SelectInfoCust" SpName="Acc_CustGroupSel" DbName="db053"></Setting>
+    <Setting Key="DeleteCustomer" SpName="Acc_CustGroupDel" DbName="db053"></Setting>
+    <Setting Key="AddExistCustomer" SpName="Acc_CustGroupAddByUsername" DbName="db053"></Setting>
+  </Function>
+</Functions>
+

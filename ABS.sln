@@ -1,0 +1,131 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.ABS.Web.Presentation", "Fanex.ABS.Web.Presentation\Fanex.ABS.Web.Presentation.csproj", "{02652549-0A29-4D0B-8A87-172DCE3592FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.ABS.Web.Controllers", "Fanex.ABS.Web.Controllers\Fanex.ABS.Web.Controllers.csproj", "{F47F6A6B-D7CA-4A08-9F57-EFF2EFBD004F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.ABS.Entities", "Fanex.ABS.Entities\Fanex.ABS.Entities.csproj", "{45F7A744-1327-4570-B74E-936FC29D7027}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.ABS.Web.Models", "Fanex.ABS.Web.Models\Fanex.ABS.Web.Models.csproj", "{ADF9E0B2-24CC-45F6-BD10-FEF6D8CC9873}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bussiness", "Bussiness", "{28BBDA10-2F97-4501-A6D6-7BE1740D723C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{9FF28FDE-1787-4792-9C62-E22E1C6EE9A8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Entities", "Entities", "{9927C705-69D2-4473-B23D-1D496DE30BCE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccess", "DataAccess", "{187422C3-C7EA-4617-B78D-3FF4FD2EBC81}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebSite", "WebSite", "{617E7B47-F8D6-4DE9-A002-7FB22A084A98}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.ABS.Service.Interface", "Fanex.ABS.Service.Interface\Fanex.ABS.Service.Interface.csproj", "{E0174EF5-4DDD-482B-A841-8C9CAD87E2F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.ABS.Service.Impl", "Fanex.ABS.Service.Impl\Fanex.ABS.Service.Impl.csproj", "{4810926F-6C13-4D00-9F61-0ADEC8BB8E18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.ABS.DataAccess.Interface", "Fanex.ABS.DataAccess.Interface\Fanex.ABS.DataAccess.Interface.csproj", "{136D37C4-AECA-42C5-818A-DCCE7049EA3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.ABS.DataAccess.Impl", "Fanex.ABS.DataAccess.Impl\Fanex.ABS.DataAccess.Impl.csproj", "{904EBE81-CA90-4E02-B1FC-41ADEF760410}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.ABS.Infrastructure", "Fanex.ABS.Infrastructure\Fanex.ABS.Infrastructure.csproj", "{DDFB5A5A-DCC8-4BBB-B734-604A648948C6}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 10
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://10.18.200.213:8080/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Fanex.ABS.Entities\\Fanex.ABS.Entities.csproj
+		SccProjectTopLevelParentUniqueName1 = ABS.sln
+		SccProjectName1 = Fanex.ABS.Entities
+		SccLocalPath1 = Fanex.ABS.Entities
+		SccProjectUniqueName2 = Fanex.ABS.Web.Controllers\\Fanex.ABS.Web.Controllers.csproj
+		SccProjectTopLevelParentUniqueName2 = ABS.sln
+		SccProjectName2 = Fanex.ABS.Web.Controllers
+		SccLocalPath2 = Fanex.ABS.Web.Controllers
+		SccProjectUniqueName3 = Fanex.ABS.Web.Presentation\\Fanex.ABS.Web.Presentation.csproj
+		SccProjectTopLevelParentUniqueName3 = ABS.sln
+		SccProjectName3 = Fanex.ABS.Web.Presentation
+		SccLocalPath3 = Fanex.ABS.Web.Presentation
+		SccProjectUniqueName4 = Fanex.ABS.Web.Models\\Fanex.ABS.Web.Models.csproj
+		SccProjectTopLevelParentUniqueName4 = ABS.sln
+		SccProjectName4 = Fanex.ABS.Web.Models
+		SccLocalPath4 = Fanex.ABS.Web.Models
+		SccProjectUniqueName5 = Fanex.ABS.Service.Interface\\Fanex.ABS.Service.Interface.csproj
+		SccProjectTopLevelParentUniqueName5 = ABS.sln
+		SccProjectName5 = Fanex.ABS.Service.Interface
+		SccLocalPath5 = Fanex.ABS.Service.Interface
+		SccProjectUniqueName6 = Fanex.ABS.Service.Impl\\Fanex.ABS.Service.Impl.csproj
+		SccProjectTopLevelParentUniqueName6 = ABS.sln
+		SccProjectName6 = Fanex.ABS.Service.Impl
+		SccLocalPath6 = Fanex.ABS.Service.Impl
+		SccProjectUniqueName7 = Fanex.ABS.DataAccess.Interface\\Fanex.ABS.DataAccess.Interface.csproj
+		SccProjectTopLevelParentUniqueName7 = ABS.sln
+		SccProjectName7 = Fanex.ABS.DataAccess.Interface
+		SccLocalPath7 = Fanex.ABS.DataAccess.Interface
+		SccProjectUniqueName8 = Fanex.ABS.DataAccess.Impl\\Fanex.ABS.DataAccess.Impl.csproj
+		SccProjectTopLevelParentUniqueName8 = ABS.sln
+		SccProjectName8 = Fanex.ABS.DataAccess.Impl
+		SccLocalPath8 = Fanex.ABS.DataAccess.Impl
+		SccProjectUniqueName9 = Fanex.ABS.Infrastructure\\Fanex.ABS.Infrastructure.csproj
+		SccProjectTopLevelParentUniqueName9 = ABS.sln
+		SccProjectName9 = Fanex.ABS.Infrastructure
+		SccLocalPath9 = Fanex.ABS.Infrastructure
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{02652549-0A29-4D0B-8A87-172DCE3592FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02652549-0A29-4D0B-8A87-172DCE3592FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02652549-0A29-4D0B-8A87-172DCE3592FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02652549-0A29-4D0B-8A87-172DCE3592FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F47F6A6B-D7CA-4A08-9F57-EFF2EFBD004F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F47F6A6B-D7CA-4A08-9F57-EFF2EFBD004F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F47F6A6B-D7CA-4A08-9F57-EFF2EFBD004F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F47F6A6B-D7CA-4A08-9F57-EFF2EFBD004F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45F7A744-1327-4570-B74E-936FC29D7027}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45F7A744-1327-4570-B74E-936FC29D7027}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45F7A744-1327-4570-B74E-936FC29D7027}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45F7A744-1327-4570-B74E-936FC29D7027}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADF9E0B2-24CC-45F6-BD10-FEF6D8CC9873}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADF9E0B2-24CC-45F6-BD10-FEF6D8CC9873}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADF9E0B2-24CC-45F6-BD10-FEF6D8CC9873}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADF9E0B2-24CC-45F6-BD10-FEF6D8CC9873}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0174EF5-4DDD-482B-A841-8C9CAD87E2F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0174EF5-4DDD-482B-A841-8C9CAD87E2F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0174EF5-4DDD-482B-A841-8C9CAD87E2F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0174EF5-4DDD-482B-A841-8C9CAD87E2F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4810926F-6C13-4D00-9F61-0ADEC8BB8E18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4810926F-6C13-4D00-9F61-0ADEC8BB8E18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4810926F-6C13-4D00-9F61-0ADEC8BB8E18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4810926F-6C13-4D00-9F61-0ADEC8BB8E18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{136D37C4-AECA-42C5-818A-DCCE7049EA3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{136D37C4-AECA-42C5-818A-DCCE7049EA3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{136D37C4-AECA-42C5-818A-DCCE7049EA3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{136D37C4-AECA-42C5-818A-DCCE7049EA3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{904EBE81-CA90-4E02-B1FC-41ADEF760410}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{904EBE81-CA90-4E02-B1FC-41ADEF760410}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{904EBE81-CA90-4E02-B1FC-41ADEF760410}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{904EBE81-CA90-4E02-B1FC-41ADEF760410}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDFB5A5A-DCC8-4BBB-B734-604A648948C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDFB5A5A-DCC8-4BBB-B734-604A648948C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDFB5A5A-DCC8-4BBB-B734-604A648948C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDFB5A5A-DCC8-4BBB-B734-604A648948C6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{45F7A744-1327-4570-B74E-936FC29D7027} = {9927C705-69D2-4473-B23D-1D496DE30BCE}
+		{E0174EF5-4DDD-482B-A841-8C9CAD87E2F8} = {28BBDA10-2F97-4501-A6D6-7BE1740D723C}
+		{4810926F-6C13-4D00-9F61-0ADEC8BB8E18} = {28BBDA10-2F97-4501-A6D6-7BE1740D723C}
+		{DDFB5A5A-DCC8-4BBB-B734-604A648948C6} = {9FF28FDE-1787-4792-9C62-E22E1C6EE9A8}
+		{136D37C4-AECA-42C5-818A-DCCE7049EA3E} = {187422C3-C7EA-4617-B78D-3FF4FD2EBC81}
+		{904EBE81-CA90-4E02-B1FC-41ADEF760410} = {187422C3-C7EA-4617-B78D-3FF4FD2EBC81}
+		{F47F6A6B-D7CA-4A08-9F57-EFF2EFBD004F} = {617E7B47-F8D6-4DE9-A002-7FB22A084A98}
+		{ADF9E0B2-24CC-45F6-BD10-FEF6D8CC9873} = {617E7B47-F8D6-4DE9-A002-7FB22A084A98}
+		{02652549-0A29-4D0B-8A87-172DCE3592FE} = {617E7B47-F8D6-4DE9-A002-7FB22A084A98}
+	EndGlobalSection
+EndGlobal

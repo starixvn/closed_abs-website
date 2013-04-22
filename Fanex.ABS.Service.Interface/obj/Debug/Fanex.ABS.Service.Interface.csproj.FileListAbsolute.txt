@@ -1,0 +1,8 @@
+D:\WORK\PROJECT\ROME1\ABS\Main\SourceCodeMVC\ABS\Fanex.ABS.Service.Interface\bin\Debug\Fanex.ABS.Service.Interface.dll
+D:\WORK\PROJECT\ROME1\ABS\Main\SourceCodeMVC\ABS\Fanex.ABS.Service.Interface\bin\Debug\Fanex.ABS.Service.Interface.pdb
+D:\WORK\PROJECT\ROME1\ABS\Main\SourceCodeMVC\ABS\Fanex.ABS.Service.Interface\bin\Debug\ExcelUtil.dll
+D:\WORK\PROJECT\ROME1\ABS\Main\SourceCodeMVC\ABS\Fanex.ABS.Service.Interface\bin\Debug\Fanex.ABS.Entities.dll
+D:\WORK\PROJECT\ROME1\ABS\Main\SourceCodeMVC\ABS\Fanex.ABS.Service.Interface\bin\Debug\Fanex.ABS.Entities.pdb
+D:\WORK\PROJECT\ROME1\ABS\Main\SourceCodeMVC\ABS\Fanex.ABS.Service.Interface\obj\Debug\ResolveAssemblyReference.cache
+D:\WORK\PROJECT\ROME1\ABS\Main\SourceCodeMVC\ABS\Fanex.ABS.Service.Interface\obj\Debug\Fanex.ABS.Service.Interface.dll
+D:\WORK\PROJECT\ROME1\ABS\Main\SourceCodeMVC\ABS\Fanex.ABS.Service.Interface\obj\Debug\Fanex.ABS.Service.Interface.pdb

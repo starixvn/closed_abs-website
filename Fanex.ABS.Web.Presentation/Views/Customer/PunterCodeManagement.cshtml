@@ -1,0 +1,403 @@
+﻿@using Fanex.ABS.Infrastructure.Configurations;
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Punter Code Management</title>
+    <link href="~/Scripts/Lib/Pager/pagination.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Ocean/Grid.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Ocean/StyleSheet.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <input id="hGroupName" type="hidden" value="@ViewBag.DeptName" />
+    <input id="hABDGroupID" type="hidden" value="@ViewBag.ABDGroupID" />
+    <div id="headerSection">
+        <a href="#" id="btnToggle" class="toggler" title="Expand/Collapse Add Punter Code">
+        </a>
+        <div class="pageTitle">
+            Punter Code Management</div>
+        <div class="filterSection" id="filterSection" style="width: 930px">
+            <div class="pageSubTitle">
+                Add Punter Code</div>
+            <div id="divAddPunterCode">
+                <table border="0">
+                    <tr>
+                        <td class="w100 r">
+                            <label>
+                                Punter Code:</label>
+                        </td>
+                        <td class="w150 l">
+                            <input id="tbxPunterCode" type="text" class="inputtext" />
+                        </td>
+                        <td class="w80 r">
+                            <label>
+                                Punter Color:</label>
+                        </td>
+                        <td class="l" style="position: relative">
+                            <select class="w80 inputtext colorpicker" id="selPunterColor">
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+                <table border="0" style="display: none">
+                    <tr>
+                        <td class="w100 r">
+                            <label>
+                                Currency:</label>
+                        </td>
+                        <td class="l">
+                            <select id="selCurrency" class="w80 inputtext">
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+                <table border="0">
+                    <tr>
+                        <td class="w100 r">
+                            <label>
+                                FB AH:</label>
+                        </td>
+                        <td class="w150 l">
+                            <input id="tbxFBAH" type="text" class="inputtext" value="0" style="text-align: right" />
+                        </td>
+                        <td class="w80 r">
+                            <label>
+                                FB OU:</label>
+                        </td>
+                        <td class="l">
+                            <input id="tbxFBOU" type="text" class="inputtext" value="0" style="text-align: right" />
+                        </td>
+                        <td class="w80 r">
+                            <label>
+                                FB 1x2:</label>
+                        </td>
+                        <td class="l">
+                            <input id="tbxFB1x2" type="text" class="inputtext" value="0" style="text-align: right" />
+                        </td>
+                    </tr>
+                </table>
+                <table border="0">
+                    <tr>
+                        <td class="w100">
+                        </td>
+                        <td class="l">
+                            <input onclick="javascript:pc.panel.addPunterCode(event);" type="button" class="btn w125"
+                                value="Add Punter Code" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="msg" style="width: 910px; display: none">
+            </div>
+        </div>
+    </div>
+    <div class="contentSection" id="contentSection" style="padding-top: 155px; float: left;">
+        <div>
+            <input style="margin-left: 1px" id="btnRefresh" type="button" class="btn" value="Refresh"
+                onclick="javascript:pc.gridpl.refresh();" />
+        </div>
+        <div id="punterList" class="content-warper hidden" style="border-right: 0px; margin-top: 6px">
+            <div class="content-header clearfix">
+                <div class="header-scroll">
+                    <table class="tbl-header-scroll">
+                        <tr>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col40 c">
+                                    #</div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col100 c" style="cursor: pointer" id="divLabelHeaderPunterCode" title="Filter by punter code">
+                                    Punter Code</div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col80 c">
+                                    Color</div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col80 c">
+                                    Assigned To</div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col130 c">
+                                    Member</div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col120 c">
+                                    FB AH</div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col120 c">
+                                    FB OU</div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col120 c">
+                                    FB 1x2</div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col60 c">
+                                    Enabled</div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col60 c">
+                                    Edit</div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="content-body clearfix" style="border-bottom: 0px;">
+                <div class="body-scroll" style="overflow: hidden;">
+                    <table class="tbl-body-scroll">
+                        <tbody id="tbodyPunterList">
+                        </tbody>
+                    </table>
+                    <script id="stPunterListEmpty" type="text/html">
+                        <tr><td style="border:0px none">
+                                <div style='width:724px;text-align:center'>
+                                    There is no information
+                                </div>
+                            </td>
+                        </tr>
+                    </script>
+                    <script id="scriptPunterList" type="text/html">
+                        <tr><td>
+                                <div class="col40 c">
+                                    ${index}</div>
+                            </td><td>
+                                <div value='${PunterCode}' f_puntercode="true" class="col100 c" style="color:${Color}">
+                                    ${PunterCode}</div>
+                            </td><td>
+                                <div f_puntercolor="true" class="col80 c" style="color:${Color}" value="${Color}">
+                                    ${ColorName}</div>
+                            </td><td>
+                                <div f_user="true" totaluser="${TotalAdmin}" username="${UserName}" puntercodeid="${PunterCodeId}" puntercode="${PunterCode}"
+                                   class="col80 c" enabled="${Enabled}">
+                                </div>
+                            </td><td>
+                                <div f_member="true" totalmember="${TotalMember}" username="${UserName}" puntercodeid="${PunterCodeId}" puntercode="${PunterCode}"
+                                    _color="${Color}" class="col130 c" enabled="${Enabled}">
+                                    {{if Enabled}}
+                                        <img iconadd="true" onclick="javascript:pc.gridpl.showPopupAddMember(${PunterCodeId}, ${ExchangeId}, ${TotalMember}, '${PunterCode}');"
+                                            src="@Url.Content("~/Views/Customer/Styles/Images/add_icon.gif")"
+                                            style="display:none;cursor:pointer;float:right"
+                                        />
+                                    {{/if}}
+                                </div>
+                            </td><td>
+                                <div f_fbah="true" class="col120 r" value="${FBAH}" style="overflow:hidden" title="${FBAH}">
+                                    ${FBAH}</div>
+                            </td><td>
+                                <div f_fbou="true" class="col120 r" value="${FBOU}" style="overflow:hidden" title="${FBOU}">
+                                    ${FBOU}</div>
+                            </td><td>
+                                <div f_fb1x2="true" class="col120 r" value="${FB1x2}" style="overflow:hidden" title="${FB1x2}">
+                                    ${FB1x2}</div>
+                            </td><td>
+                                <div class="col60 c">
+                                    <input f_enable="true" type="checkbox" disabled="disabled"
+                                    {{if Enabled}}
+                                        checked="checked"
+                                    {{/if}}
+                                     />
+                                </div>
+                            </td><td>
+                                <div class="col60 c">
+                                    <input type="button" title="Edit" class="btnEdit" onclick="javascript:pc.gridpl.beginEdit(event);" />
+                                    <input type="button" title="Save" class="btnSave hidden" onclick="javascript:pc.gridpl.updatePunterCode(event);" />
+                                    <input type="button" title="Cancel" class="btnCancel hidden" onclick="javascript:pc.gridpl.endEdit(event, 'cancel');" />
+                                    <input type="hidden" value="${PunterCodeId}" _puntercodeid="true" />
+                                </div>
+                            </td>
+                        </tr>
+                    </script>
+                </div>
+            </div>
+            <div class="content-pagination bgtitle clearfix" style="border-top: 0px; border-right: solid 1px #bababa;">
+                <div class="pagination-scroll">
+                    <table style="width: 100%" cellspacing="0" cellpadding="1">
+                        <tr>
+                            <td>
+                                <div id="pagination">
+                                    &nbsp;</div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="divPopuMemberList" class="contentSection" style="display: none">
+        <div id="divMsgEditMember" style="display: none; margin-bottom: 2px; width: 366px;
+            padding-top: 2px; padding-bottom: 2px; padding-left: 2px">
+        </div>
+        <div id="divMemberList" class="content-warper hidden">
+            <div class="content-header clearfix">
+                <div class="header-scroll">
+                    <table class="tbl-header-scroll">
+                        <tr>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col40 c">
+                                    #</div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col240 c">
+                                    Member Name</div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col60 c">
+                                    Remove</div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="content-body clearfix">
+                <div class="body-scroll">
+                    <table class="tbl-body-scroll">
+                        <tbody id="tbodyMemberList">
+                        </tbody>
+                    </table>
+                    <script id="stMemberList" type="text/html">
+                        <tr><td>
+                                <div class="col40 c">
+                                    ${index}</div>
+                            </td><td>
+                                <div class="col240 l">
+                                    <span style="margin-left:8px;color:${Color}">${MemberName}</span>
+                                </div>
+                            </td><td>
+                                <div class="col60 c">
+                                    <input type="checkbox" memberid="${MemberId}" />
+                                </div>
+                            </td>
+                        </tr>
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="divPopupAddMember" style="display: none; height: 150px; vertical-align: middle;
+        margin-top: 30px">
+        <div id="divMsgAddMember" style="margin-top: -15px; display: none; margin-bottom: 2px;
+            width: 366px; padding-top: 2px; padding-bottom: 2px; padding-left: 2px">
+        </div>
+        <table border="0">
+            <tbody>
+                <tr>
+                    <td class="w120 r">
+                        <label>
+                            Member's name:</label>
+                    </td>
+                    <td class="w260">
+                        <input id="tbxUserNameInsert" onkeyup="javascript:pc.member.searchMembers(event);"
+                            type="text" class="inputtext w260" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="divPopupUserList" class="contentSection" style="display: none">
+        <div id="divMsgEditUser" style="display: none; margin-bottom: 2px; width: 366px;
+            padding-top: 2px; padding-bottom: 2px; padding-left: 2px">
+        </div>
+        <div id="divUserList" class="content-warper hidden">
+            <div class="content-header clearfix">
+                <div class="header-scroll">
+                    <table class="tbl-header-scroll">
+                        <tr>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col40 c">
+                                    #</div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col240 c">
+                                    User Name</div>
+                            </td>
+                            <td style="border-bottom: none 0px;">
+                                <div class="col60 c">
+                                    Assign</div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="content-body clearfix">
+                <div class="body-scroll">
+                    <table class="tbl-body-scroll">
+                        <tbody id="tbodyUserList">
+                        </tbody>
+                    </table>
+                    <script id="stUserList" type="text/html">
+                        <tr><td>
+                                <div class="col40 c">
+                                    ${index}</div>
+                            </td><td>
+                                <div class="col240 l">
+                                    <span style="margin-left:8px;
+                                    {{if IsSupper }}
+                                        color:Red;
+                                    {{/if}}
+                                    ">${UserName}</span>
+                                </div>
+                            </td><td>
+                                <div class="col60 c">
+                                    <input type="checkbox" userid="${UserId}"
+                                    {{if IsAssign}}
+                                        checked="checked"
+                                    {{/if}}
+                                    />
+                                </div>
+                            </td>
+                        </tr>
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*  <div id="divPopupAddUser" style="display: none; height: 150px; vertical-align: middle;
+        margin-top: 30px">
+        <div id="divMsgAddUser" style="margin-top: -15px; display: none; margin-bottom: 2px;
+            width: 366px; padding-top: 2px; padding-bottom: 2px; padding-left: 2px">
+        </div>
+        <table border="0">
+            <tbody>
+                <tr>
+                    <td class="w120 r">
+                        <label>
+                            User's name:</label>
+                    </td>
+                    <td class="w260">
+                        <input id="tbxUserInsert" type="text" class="inputtext w260" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>*@
+    <script type="text/javascript">
+        var abtDangerConfig = "@ViewBag.ABTDangerConfig";
+        var listCurrency = @Html.Raw(ViewBag.CurrencyList);
+        var colorFilter = "@ViewBag.ColorFilter";
+    </script>
+    <input id="hUserID" type="hidden" value="@Fanex.ABS.Web.Controllers.Helper.AppSession.UserId.ToString()" />
+    <script src="~/Scripts/Lib/jquery.1.6.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/Pager/jpager.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/utils/jquery.setcaretposition.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/utils/jquery.button.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/Jlinq/jlinq.jquery.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/Template/jquery.tmpl.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/gridscroller.js" type="text/javascript"></script>
+    <script src="~/Scripts/Common.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/Number/jquery.formattyping.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/Number/jquery.caret.1.02.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/jquery.imgpreload.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/Popup/js/centreIt-1.1.5.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/Popup/js/jquery.popup.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/Number/jquery.stringnumformat.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/autocomplete/jquery.autocomplete.client.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/autocomplete/jquery.highlight-3.js" type="text/javascript"></script>
+    <script src="~/Scripts/Lib/utils/jquery.maxlength.js" type="text/javascript"></script>
+    <script src="~/Views/Customer/Scripts/PunterCodeManagement.js?ver=@WebSettings.Version" type="text/javascript"></script>
+</body>
+</html>
